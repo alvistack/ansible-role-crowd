@@ -64,7 +64,7 @@
     chown -Rf {{ crowd_owner }}:{{ crowd_group }} {{ crowd_catalina }}
     rm -rf $ARCHIVE
   args:
-    creates: "{{ crowd_catalina }}/bin/start-crowd.sh"
+    creates: "{{ crowd_catalina }}/start_crowd.sh"
   tags: crowd
 
 - name: remove stuff due to custom context path
