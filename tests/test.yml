@@ -28,4 +28,4 @@
     - role: ansible-role-java
     - role: ansible-role-crowd
     - role: ansible-role-mariadb-connector-java
-#      mariadb_connector_java_dest: "/opt/atlassian/crowd/apache-tomcat/lib/mariadb-connector-java.jar"
+      mariadb_connector_java_dest: "/opt/atlassian/crowd/apache-tomcat/lib/mariadb-connector-java.jar"
