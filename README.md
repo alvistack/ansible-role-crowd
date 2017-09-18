@@ -46,7 +46,7 @@ Role Variables
 <tr class="even">
 <td>crowd_connector_port</td>
 <td>no</td>
-<td><code>8080</code></td>
+<td><code>8095</code></td>
 <td></td>
 <td>Crowd Apache Tomcat connector port</td>
 </tr>
@@ -119,14 +119,14 @@ Role Variables
 <tr class="even">
 <td>crowd_server_port</td>
 <td>no</td>
-<td><code>8005</code></td>
+<td><code>8020</code></td>
 <td></td>
 <td>Crowd Apache Tomcat server port</td>
 </tr>
 <tr class="odd">
 <td>crowd_url</td>
 <td>no</td>
-<td><code>https://downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-core-7.5.0.tar.gz</code></td>
+<td><code>https://downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.0.1.tar.gz</code></td>
 <td></td>
 <td>URL for download archive</td>
 </tr>

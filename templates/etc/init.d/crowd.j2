@@ -1,0 +1,77 @@
+#!/bin/bash
+
+# {{ ansible_managed }}
+
+### BEGIN INIT INFO
+# Provides:          crowd
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Initscript for Atlassian Crowd
+# Description:  Automatically start Atlassian Crowd when the system starts up.
+#               Provide commands for manually starting and stopping Crowd.
+### END INIT INFO
+
+RUN_AS_USER={{ crowd_owner }}
+CATALINA_HOME={{ crowd_catalina }}
+PID_FILE={{ crowd_catalina }}/work/catalina.pid
+
+start() {
+    echo "Starting Crowd: "
+    if [ "x$USER" != "x$RUN_AS_USER" ]; then
+        su -s /bin/bash $RUN_AS_USER -c "$CATALINA_HOME/start_crowd.sh $@"
+    else
+        $CATALINA_HOME/start_crowd.sh $@
+    fi
+    echo "done."
+}
+
+stop() {
+    echo "Shutting down Crowd: "
+    if [ "x$USER" != "x$RUN_AS_USER" ]; then
+        su -s /bin/bash $RUN_AS_USER -c "$CATALINA_HOME/stop_crowd.sh $@"
+    else
+        $CATALINA_HOME/stop_crowd.sh $@
+    fi
+    echo "done."
+}
+
+status() {
+    if [ -f $PID_FILE ]; then
+        PID=$(<$PID_FILE)
+        if $(kill -0 "${PID:-}" 2> /dev/null); then
+            echo "Crowd is running"
+            exit 0
+        elif ps "${PID:-}" > /dev/null 2>&1; then
+            echo "Crowd is running"
+            exit 0
+        else
+            echo "Crowd is not running (pidfile exists)"
+            exit 1
+        fi
+    fi
+
+    echo "Crowd is not running"
+    exit 3
+}
+
+case "$1" in
+    start)
+        start ${@:2}
+        ;;
+    stop)
+        stop ${@:2}
+        ;;
+    restart)
+        stop ${@:2}
+        start ${@:2}
+        ;;
+    status)
+        status
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status}"
+        exit 1
+        ;;
+esac
