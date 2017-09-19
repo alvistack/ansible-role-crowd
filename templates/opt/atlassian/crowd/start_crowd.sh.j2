@@ -3,10 +3,10 @@
 # {{ ansible_managed }}
 
 if [ "$1" = "-fg" ] || [ "$1" = "run" ]  ; then
-        shift
-        PRGRUNMODE=true
+    shift
+    PRGRUNMODE=true
 else
-        echo "To run Crowd in the foreground, start the server with $0 -fg"
+    echo "To run Crowd in the foreground, start the server with $0 -fg"
 fi
 
 cd "`dirname "$0"`"
