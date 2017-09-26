@@ -26,6 +26,21 @@
     - role: ansible-role-apt
     - role: ansible-role-yum
     - role: ansible-role-java
+
+- hosts: all
+  remote_user: root
+  roles:
     - role: ansible-role-crowd
+      # Owner and group for Crowd.
+      crowd_owner: "daemon"
+      crowd_group: "daemon"
+      # Location for the $CROWD_HOME directory.
+      crowd_home: "/var/atlassian/application-data/crowd"
+      # Location for the $CROWD_CATALINA directory.
+      crowd_catalina: "/opt/atlassian/crowd"
+
+- hosts: all
+  remote_user: root
+  roles:
     - role: ansible-role-mariadb-connector-java
       mariadb_connector_java_dest: "/opt/atlassian/crowd/apache-tomcat/lib/mariadb-connector-java.jar"
