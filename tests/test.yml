@@ -38,9 +38,25 @@
       crowd_home: "/var/atlassian/application-data/crowd"
       # Location for the $CROWD_CATALINA directory.
       crowd_catalina: "/opt/atlassian/crowd"
+      # Crowd Apache Tomcat connector and server port.
+      crowd_connector_port: "8095"
+      crowd_server_port: "8020"
 
 - hosts: all
   remote_user: root
   roles:
     - role: ansible-role-mariadb-connector-java
       mariadb_connector_java_dest: "/opt/atlassian/crowd/apache-tomcat/lib/mariadb-connector-java.jar"
+
+- hosts: all
+  remote_user: root
+  tasks:
+    - name: service crowd start
+      service:
+        name: "crowd"
+        enabled: "yes"
+
+    - name: check port
+      wait_for:
+        port: "8095"
+        timeout: "300"
