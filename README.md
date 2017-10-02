@@ -1,7 +1,7 @@
 Ansible Role for Crowd
 ======================
 
-[![Build Status](https://travis-ci.org/alvistack/ansible-role-crowd.svg?branch=master)](https://travis-ci.org/alvistack/ansible-role-crowd)
+[![Travis](https://img.shields.io/travis/alvistack/ansible-role-crowd.svg)](https://travis-ci.org/alvistack/ansible-role-crowd)
 [![GitHub release](https://img.shields.io/github/release/alvistack/ansible-role-crowd.svg)](https://github.com/alvistack/ansible-role-crowd)
 [![GitHub license](https://img.shields.io/github/license/alvistack/ansible-role-crowd.svg)](https://github.com/alvistack/ansible-role-crowd/blob/master/LICENSE)
 [![Ansible Role](https://img.shields.io/badge/galaxy-alvistack.crowd-blue.svg)](https://galaxy.ansible.com/alvistack/crowd)

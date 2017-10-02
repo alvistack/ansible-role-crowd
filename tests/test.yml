@@ -38,6 +38,9 @@
       crowd_home: "/var/atlassian/application-data/crowd"
       # Location for the $CROWD_CATALINA directory.
       crowd_catalina: "/opt/atlassian/crowd"
+      # Crowd Apache Tomcat connector and server port.
+      crowd_connector_port: "8095"
+      crowd_server_port: "8020"
 
 - hosts: all
   remote_user: root
