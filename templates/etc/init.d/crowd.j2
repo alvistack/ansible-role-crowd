@@ -13,33 +13,43 @@
 #               Provide commands for manually starting and stopping Crowd.
 ### END INIT INFO
 
-RUN_AS_USER={{ crowd_owner }}
-CATALINA_HOME={{ crowd_catalina }}
-CATALINA_PID={{ crowd_catalina }}/work/catalina.pid
+CROWD_OWNER={{ crowd_owner }}
+CROWD_GROUP={{ crowd_group }}
+CROWD_HOME={{ crowd_home }}
+CROWD_CATALINA={{ crowd_catalina }}
+CROWD_CATALINA_PID={{ crowd_catalina }}/apache-tomcat/work/catalina.pid
 
 start() {
     echo "Starting Crowd: "
-    if [ "x$USER" != "x$RUN_AS_USER" ]; then
-        su -s /bin/bash $RUN_AS_USER -c "$CATALINA_HOME/start_crowd.sh $@"
+
+    mkdir -p ${CROWD_HOME}
+    chmod -f 755 ${CROWD_HOME}
+    chown -Rf ${CROWD_OWNER}:${CROWD_GROUP} ${CROWD_HOME}
+
+    if [ "x${USER}" != "x${CROWD_OWNER}" ]; then
+        su -s /bin/bash ${CROWD_OWNER} -c "${CROWD_CATALINA}/start_crowd.sh $@"
     else
-        $CATALINA_HOME/start_crowd.sh $@
+        ${CROWD_CATALINA}/start_crowd.sh $@
     fi
+
     echo "done."
 }
 
 stop() {
     echo "Shutting down Crowd: "
-    if [ "x$USER" != "x$RUN_AS_USER" ]; then
-        su -s /bin/bash $RUN_AS_USER -c "$CATALINA_HOME/stop_crowd.sh $@"
+
+    if [ "x${USER}" != "x${CROWD_OWNER}" ]; then
+        su -s /bin/bash ${CROWD_OWNER} -c "${CROWD_CATALINA}/stop_crowd.sh $@"
     else
-        $CATALINA_HOME/stop_crowd.sh $@
+        ${CROWD_CATALINA}/stop_crowd.sh $@
     fi
+
     echo "done."
 }
 
 status() {
-    if [ -f $CATALINA_PID ]; then
-        PID=$(<$CATALINA_PID)
+    if [ -f ${CROWD_CATALINA_PID} ]; then
+        PID=$(<${CROWD_CATALINA_PID})
         if $(kill -0 "${PID:-}" 2> /dev/null); then
             echo "Crowd is running"
             exit 0
@@ -53,6 +63,7 @@ status() {
     fi
 
     echo "Crowd is not running"
+
     exit 3
 }
 
