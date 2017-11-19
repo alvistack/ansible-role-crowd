@@ -44,4 +44,4 @@ crowd_scheme: ~
 crowd_jvm_support_recommended_args: "-Datlassian.plugins.enable.wait=300"
 
 # URL for download Crowd archive.
-crowd_url: "https://downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.0.1.tar.gz"
+crowd_url: "https://downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.0.2.tar.gz"
