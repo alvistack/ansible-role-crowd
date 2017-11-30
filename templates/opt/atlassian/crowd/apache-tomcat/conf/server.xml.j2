@@ -2,7 +2,7 @@
 <!-- {{ ansible_managed }} -->
 <Server port="{{ crowd_server_port }}" shutdown="SHUTDOWN">
     <Service name="Catalina">
-        <Connector URIEncoding="UTF-8" acceptCount="100" compressableMimeType="text/html,text/xml,application/xml,text/plain,text/css,application/json,application/javascript,application/x-javascript" compression="off" connectionTimeout="20000" disableUploadTimeout="true" enableLookups="false" maxHttpHeaderSize="8192" maxThreads="150" minSpareThreads="25" port="{{ crowd_connector_port }}" redirectPort="8443" useBodyEncodingForURI="true"{% if crowd_proxy_name and crowd_scheme in ["http", "https"] %} proxyName="{{ crowd_proxy_name }}"{% if crowd_scheme == "http" %} scheme="http" proxyPort="80"{% elif crowd_scheme == "https" %} scheme="https" proxyPort="443" secure="true"{% endif %}{% endif %}/>
+        <Connector URIEncoding="UTF-8" acceptCount="100" compressableMimeType="text/html,text/xml,application/xml,text/plain,text/css,application/json,application/javascript,application/x-javascript" compression="on" connectionTimeout="20000" disableUploadTimeout="true" enableLookups="false" maxHttpHeaderSize="8192" maxThreads="150" minSpareThreads="25" port="{{ crowd_connector_port }}" redirectPort="8443" sendReasonPhrase="true" useBodyEncodingForURI="true"{% if crowd_proxy_name and crowd_scheme in ["http", "https"] %} proxyName="{{ crowd_proxy_name }}"{% if crowd_scheme == "http" %} scheme="http" proxyPort="80"{% elif crowd_scheme == "https" %} scheme="https" proxyPort="443" secure="true"{% endif %}{% endif %}/>
         <Engine defaultHost="localhost" name="Catalina">
             <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
                 <Context docBase="../../crowd-webapp" path="{{ crowd_context_path or '' }}">
@@ -12,7 +12,6 @@
         </Engine>
     </Service>
     <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on"/>
-    <Listener className="org.apache.catalina.core.JasperListener"/>
     <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
     <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
     <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener"/>
