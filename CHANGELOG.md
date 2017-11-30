@@ -4,6 +4,11 @@ Ansible Role for Crowd
 1.2.0 - TBC
 -----------
 
+### Major Changes
+
+-   Upgrade to Crowd 3.1.1
+-   Update apache-tomcat/conf/server.xml due to bundled Apache Tomcat 8.5 changes
+
 1.1.0 - 2017-11-23
 ------------------
 

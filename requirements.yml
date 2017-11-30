@@ -1,16 +1,16 @@
 ---
 
 - src: https://github.com/alvistack/ansible-role-python
-  version: develop
+  version: master
 
 - src: https://github.com/alvistack/ansible-role-apt
-  version: develop
+  version: master
 
 - src: https://github.com/alvistack/ansible-role-yum
-  version: develop
+  version: master
 
 - src: https://github.com/alvistack/ansible-role-java
-  version: develop
+  version: master
 
 - src: https://github.com/alvistack/ansible-role-mariadb-connector-java
-  version: develop
+  version: master
