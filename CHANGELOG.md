@@ -8,6 +8,7 @@ Ansible Role for Crowd
 
 -   Upgrade to Crowd 3.1.1
 -   Update apache-tomcat/conf/server.xml due to bundled Apache Tomcat 8.5 changes
+-   Add Ubuntu 17.10 and 18.04 support
 
 1.1.0 - 2017-11-23
 ------------------
