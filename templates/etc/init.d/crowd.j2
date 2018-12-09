@@ -13,11 +13,11 @@
 #               Provide commands for manually starting and stopping Crowd.
 ### END INIT INFO
 
-CROWD_OWNER={{ crowd_owner }}
-CROWD_GROUP={{ crowd_group }}
-CROWD_HOME={{ crowd_home }}
-CROWD_CATALINA={{ crowd_catalina }}
-CROWD_CATALINA_PID={{ crowd_catalina }}/apache-tomcat/work/catalina.pid
+CROWD_OWNER=${CROWD_OWNER:-daemon}
+CROWD_GROUP=${CROWD_GROUP:-daemon}
+CROWD_HOME=${CROWD_HOME:-/var/atlassian/application-data/crowd}
+CROWD_CATALINA=${CROWD_CATALINA:-/opt/atlassian/crowd}
+CROWD_CATALINA_PID=${CROWD_CATALINA}/apache-tomcat/work/catalina.pid
 
 start() {
     echo "Starting Crowd: "
@@ -69,14 +69,17 @@ status() {
 
 case "$1" in
     start)
-        start ${@:2}
+        shift
+        start $@
         ;;
     stop)
-        stop ${@:2}
+        shift
+        stop $@
         ;;
     restart)
-        stop ${@:2}
-        start ${@:2}
+        shift
+        stop $@
+        start $@
         ;;
     status)
         status

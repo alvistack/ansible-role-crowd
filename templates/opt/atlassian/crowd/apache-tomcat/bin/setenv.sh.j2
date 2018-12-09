@@ -1,10 +1,10 @@
 # {{ ansible_managed }}
 
-JAVA_OPTS="-Xms{{ crowd_jvm_minimum_memory }} -Xmx{{ crowd_jvm_maximum_memory }} -Dfile.encoding=UTF-8 {{ crowd_jvm_support_recommended_args }} $JAVA_OPTS"
+JAVA_OPTS="-Xms${JVM_MINIMUM_MEMORY:-"{{ crowd_jvm_minimum_memory }}"} -Xmx${JVM_MAXIMUM_MEMORY:-"{{ crowd_jvm_maximum_memory }}"} ${JVM_SUPPORT_RECOMMENDED_ARGS:-"{{ crowd_jvm_support_recommended_args }}"} -Dfile.encoding=UTF-8 $JAVA_OPTS"
 
 export JAVA_OPTS
 
-CATALINA_OPTS="-Dcrowd.home={{ crowd_home }} $CATALINA_OPTS"
+CATALINA_OPTS="-Dcrowd.home=${CROWD_HOME:-/var/atlassian/application-data/crowd} -Dcatalina.connector.scheme=${CATALINA_CONNECTOR_SCHEME:-"{{ crowd_catalina_connector_scheme }}"} -Dcatalina.connector.secure=${CATALINA_CONNECTOR_SECURE:-"{{ crowd_catalina_connector_secure }}"} -Dcatalina.connector.proxyName=${CATALINA_CONNECTOR_PROXYNAME:-"{{ crowd_catalina_connector_proxyname }}"} -Dcatalina.connector.proxyPort=${CATALINA_CONNECTOR_PROXYPORT:-"{{ crowd_catalina_connector_proxyport }}"} -Dcatalina.context.path=${CATALINA_CONTEXT_PATH:-"{{ crowd_catalina_context_path }}"} $CATALINA_OPTS"
 
 export CATALINA_OPTS
 
@@ -17,3 +17,5 @@ if [ -z "$CATALINA_PID" ] ; then
     fi
 fi
 export CATALINA_PID
+
+sed -i "s/\(<session-timeout>\).*\(<\/session-timeout>\)/\1${SESSION_TIMEOUT:-"{{ crowd_session_timeout }}"}\2/g" ${CROWD_CATALINA}/apache-tomcat/conf/web.xml
