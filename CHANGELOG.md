@@ -1,27 +1,30 @@
-Ansible Role for Crowd
-======================
+# Ansible Role for Crowd
 
-1.2.0 - TBC
------------
+## 2.2.0 - TBC
 
 ### Major Changes
 
--   Upgrade to Crowd 3.1.1
--   Update apache-tomcat/conf/server.xml due to bundled Apache Tomcat 8.5 changes
--   Add Ubuntu 17.10 and 18.04 support
-
-1.1.0 - 2017-11-23
-------------------
+## 2.1.0 - 2018-12-09
 
 ### Major Changes
 
--   Install Crowd on Ubuntu 16.04/14.04 and CentOS 7/6 from source
--   Update /etc/init.d/crowd with better support for running with dumb-init inside docker
--   Update test cases
+  - Upgrade Ansible support to 2.6 or higher
+  - Support both Ubuntu 16.04/18.04 and RHEL/CentOS 6/7
+  - CI with yamllint, ansible-lint and ansible-playbook --syntax-check
+  - CI with LXD, improve systemd support
+  - Use shell only when shell functionality is required
+  - Upgrade both MySQL and PostgreSQL JDBC driver
+  - Simplify implementation for building Docker image
 
-1.0.0 - 2017-09-25
-------------------
+## 1.1.0 - 2017-11-23
 
--   Ininitial release for Ansible 2.4
--   Support both Ubuntu 16.04/14.04 or RHEL/CentOS 7/6
+### Major Changes
 
+  - Install Crowd on Ubuntu 16.04/14.04 and CentOS 7/6 from source
+  - Update /etc/init.d/crowd with better support for running with dumb-init inside docker
+  - Update test cases
+
+## 1.0.0 - 2017-09-25
+
+  - Ininitial release for Ansible 2.4
+  - Support both Ubuntu 16.04/14.04 or RHEL/CentOS 7/6

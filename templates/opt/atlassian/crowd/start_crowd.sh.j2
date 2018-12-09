@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # {{ ansible_managed }}
 
@@ -17,13 +17,13 @@ PRGDIR=`dirname "$PRG"`
 
 PRGRUNMODE=false
 if [ "$1" = "-fg" ] || [ "$1" = "run" ]  ; then
-    shift
-    PRGRUNMODE=true
+	shift
+	PRGRUNMODE=true
 else
-    echo "To run Crowd in the foreground, start the server with $0 -fg"
+	echo "To run Crowd in the foreground, start the server with $0 -fg"
 fi
 
-if [ "$PRGRUNMODE" = "true" ] ; then
+if [ "$PRGRUNMODE" == "true" ] ; then
     exec $PRGDIR/apache-tomcat/bin/catalina.sh run "$@"
 else
     exec $PRGDIR/apache-tomcat/bin/startup.sh "$@"

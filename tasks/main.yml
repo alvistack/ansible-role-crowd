@@ -44,79 +44,72 @@
     loop_var: "loop_var"
   tags: crowd
 
-- name: prepare files
+- name: prepare directories
   file:
     dest: "{{ item.dest }}"
-    owner: "{{ item.owner }}"
-    group: "{{ item.group }}"
-    mode: "{{ item.mode }}"
-    state: "{{ item.state }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0755') }}"
+    state: "{{ item.state | default('directory') }}"
   with_items:
-    - { dest: "{{ crowd_catalina }}", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0755", state: "directory" }
-    - { dest: "{{ crowd_home }}", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0755", state: "directory" }
+    - { dest: "/opt/atlassian/crowd", owner: "daemon", group: "daemon" }
+    - { dest: "/var/atlassian/application-data/crowd", owner: "daemon", group: "daemon" }
   tags: crowd
 
 - name: unarchive package
   shell: |
-    ARCHIVE="`mktemp --suffix=tar.gz`"
-    curl -sL {{ crowd_url }} > $ARCHIVE
-    tar zxf $ARCHIVE -C {{ crowd_catalina }} --strip-components=1
-    chown -Rf {{ crowd_owner }}:{{ crowd_group }} {{ crowd_catalina }}
-    rm -rf $ARCHIVE
+    cd /opt/atlassian/crowd
+    curl -skL {{ crowd_download_url }} | tar zxf - --strip-components 1
+    cd /opt/atlassian/crowd/apache-tomcat/lib
+    rm -rf *mysql*.jar
+    curl -skL {{ mysql_jdbc_download_url }} tar zxf - --strip-components 1 --wildcards "mysql*/*mysql*.jar"
+    cd /opt/atlassian/crowd/apache-tomcat/lib
+    rm -rf *postgresql*.jar
+    curl -skL {{ postgresql_jdbc_download_url }} -O
+    chown -Rf daemon:daemon /opt/atlassian/crowd
   args:
-    creates: "{{ crowd_catalina }}/start_crowd.sh"
+    creates: "/opt/atlassian/crowd/start_crowd.sh"
   tags: crowd
 
-- name: remove stuff due to custom context path
-  file:
-    dest: "{{ item.dest }}"
-    owner: "{{ item.owner }}"
-    group: "{{ item.group }}"
-    mode: "{{ item.mode }}"
-    state: "{{ item.state }}"
-  with_items:
-    - { dest: "{{ crowd_catalina }}/apache-tomcat/webapps/ROOT", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0755", state: "absent" }
-    - { dest: "{{ crowd_catalina }}/apache-tomcat/conf/Catalina/localhost/crowd.xml", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0644", state: "absent" }
-  tags: crowd
-
-- name: copy templates
-  template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    owner: "{{ item.owner }}"
-    group: "{{ item.group }}"
-    mode: "{{ item.mode }}"
-  with_items:
-    - { src: "opt/atlassian/crowd/build.properties.j2", dest: "{{ crowd_catalina }}/build.properties", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0644" }
-  register: build_properties_result
+- name: patch /opt/atlassian/crowd/build.properties
+  lineinfile:
+    path: "/opt/atlassian/crowd/build.properties"
+    regexp: "^crowd.url="
+    line: "crowd.url=http://localhost:8095{{ crowd_catalina_context_path or '' }}"
+    state: present
+  register: lineinfile_result
   tags: crowd
 
 - name: update build with ant
   shell: |
-    cd {{ crowd_catalina }}
+    cd /opt/atlassian/crowd
+    rm -rf apache-tomcat/webapps/ROOT
+    rm -rf apache-tomcat/conf/Catalina/localhost/crowd.xml
     ./build.sh
-    chown -Rf {{ crowd_owner }}:{{ crowd_group }} {{ crowd_catalina }}
-  when: build_properties_result.changed
-  register: build_result
-  changed_when: build_result.rc != 0
+    chown -Rf daemon:daemon /opt/atlassian/crowd
+  when: lineinfile_result is changed
+  register: result
+  changed_when: result is not succeeded
   tags: crowd
 
 - name: copy templates
   template:
-    src: "{{ item.src }}"
+    src: "./templates{{ item.dest }}.j2"
     dest: "{{ item.dest }}"
-    owner: "{{ item.owner }}"
-    group: "{{ item.group }}"
-    mode: "{{ item.mode }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0644') }}"
   with_items:
-    - { src: "etc/init.d/crowd.j2", dest: "/etc/init.d/crowd", owner: "root", group: "root", mode: "0755" }
-    - { src: "opt/atlassian/crowd/apache-tomcat/bin/setenv.sh.j2", dest: "{{ crowd_catalina }}/apache-tomcat/bin/setenv.sh", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0755" }
-    - { src: "opt/atlassian/crowd/apache-tomcat/conf/server.xml.j2", dest: "{{ crowd_catalina }}/apache-tomcat/conf/server.xml", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0644" }
-    - { src: "opt/atlassian/crowd/start_crowd.sh.j2", dest: "{{ crowd_catalina }}/start_crowd.sh", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0755" }
+    - { dest: "/etc/init.d/crowd", mode: "0755" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "daemon", group: "daemon", mode: "0755" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "daemon", group: "daemon" }
+    - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "daemon", group: "daemon", mode: "0755" }
   tags: crowd
 
 - name: enable service
   service:
-    name: "crowd"
-    enabled: "yes"
+    name: crowd
+    enabled: yes
+  changed_when: false
+  ignore_errors: yes
   tags: crowd
