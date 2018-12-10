@@ -1,10 +1,13 @@
 # {{ ansible_managed }}
 
+CROWD_HOME=${CROWD_HOME:-"/var/atlassian/application-data/crowd"}
+CROWD_CATALINA=${CROWD_CATALINA:-"/opt/atlassian/crowd"}
+
 JAVA_OPTS="-Xms${JVM_MINIMUM_MEMORY:-"{{ crowd_jvm_minimum_memory }}"} -Xmx${JVM_MAXIMUM_MEMORY:-"{{ crowd_jvm_maximum_memory }}"} ${JVM_SUPPORT_RECOMMENDED_ARGS:-"{{ crowd_jvm_support_recommended_args }}"} -Dfile.encoding=UTF-8 $JAVA_OPTS"
 
 export JAVA_OPTS
 
-CATALINA_OPTS="-Dcrowd.home=${CROWD_HOME:-/var/atlassian/application-data/crowd} -Dcatalina.connector.scheme=${CATALINA_CONNECTOR_SCHEME:-"{{ crowd_catalina_connector_scheme }}"} -Dcatalina.connector.secure=${CATALINA_CONNECTOR_SECURE:-"{{ crowd_catalina_connector_secure }}"} -Dcatalina.connector.proxyName=${CATALINA_CONNECTOR_PROXYNAME:-"{{ crowd_catalina_connector_proxyname }}"} -Dcatalina.connector.proxyPort=${CATALINA_CONNECTOR_PROXYPORT:-"{{ crowd_catalina_connector_proxyport }}"} -Dcatalina.context.path=${CATALINA_CONTEXT_PATH:-"{{ crowd_catalina_context_path }}"} $CATALINA_OPTS"
+CATALINA_OPTS="-Dcrowd.home=${CROWD_HOME} -Dcatalina.connector.scheme=${CATALINA_CONNECTOR_SCHEME:-"{{ crowd_catalina_connector_scheme }}"} -Dcatalina.connector.secure=${CATALINA_CONNECTOR_SECURE:-"{{ crowd_catalina_connector_secure }}"} -Dcatalina.connector.proxyName=${CATALINA_CONNECTOR_PROXYNAME:-"{{ crowd_catalina_connector_proxyname }}"} -Dcatalina.connector.proxyPort=${CATALINA_CONNECTOR_PROXYPORT:-"{{ crowd_catalina_connector_proxyport }}"} -Dcatalina.context.path=${CATALINA_CONTEXT_PATH:-"{{ crowd_catalina_context_path }}"} $CATALINA_OPTS"
 
 export CATALINA_OPTS
 
