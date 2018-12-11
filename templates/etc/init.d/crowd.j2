@@ -23,7 +23,7 @@ start() {
     echo "Starting Crowd: "
 
     if [ "x${USER}" != "x${CROWD_OWNER}" ]; then
-        su -l -s /bin/bash ${CROWD_OWNER} -c "${CROWD_CATALINA}/start_crowd.sh $@"
+        su -s /bin/bash ${CROWD_OWNER} -c "${CROWD_CATALINA}/start_crowd.sh $@"
     else
         ${CROWD_CATALINA}/start_crowd.sh $@
     fi
@@ -35,7 +35,7 @@ stop() {
     echo "Shutting down Crowd: "
 
     if [ "x${USER}" != "x${CROWD_OWNER}" ]; then
-        su -l -s /bin/bash ${CROWD_OWNER} -c "${CROWD_CATALINA}/stop_crowd.sh $@"
+        su -s /bin/bash ${CROWD_OWNER} -c "${CROWD_CATALINA}/stop_crowd.sh $@"
     else
         ${CROWD_CATALINA}/stop_crowd.sh $@
     fi
