@@ -55,16 +55,18 @@
     - { dest: "/etc/init.d" }
     - { dest: "/etc/systemd/system" }
     - { dest: "/opt/atlassian/crowd", owner: "daemon", group: "daemon" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin", owner: "daemon", group: "daemon", mode: "0775" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf", owner: "daemon", group: "daemon", mode: "0775" }
     - { dest: "/var/atlassian/application-data/crowd", owner: "daemon", group: "daemon" }
   tags: crowd
 
 - name: unarchive package
   shell: |
     cd /opt/atlassian/crowd
-    curl -skL {{ crowd_download_url }} | tar zxf - --strip-components 1
+    curl -skL {{ crowd_download_url }} | tar zxf - --strip-components=1
     cd /opt/atlassian/crowd/apache-tomcat/lib
     rm -rf *mysql*.jar
-    curl -skL {{ mysql_jdbc_download_url }} | tar zxf - --strip-components 1 --wildcards "mysql*/*mysql*.jar"
+    curl -skL {{ mysql_jdbc_download_url }} | tar zxf - --strip-components=1 --wildcards "mysql*/*mysql*.jar"
     cd /opt/atlassian/crowd/apache-tomcat/lib
     rm -rf *postgresql*.jar
     curl -skL {{ postgresql_jdbc_download_url }} -O
@@ -107,18 +109,23 @@
     - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "daemon", group: "daemon", mode: "0755" }
     - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "daemon", group: "daemon" }
     - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "daemon", group: "daemon", mode: "0755" }
-  register: template_result
+  notify:
+    - systemctl daemon-reload
   tags: crowd
 
-- name: systemctl daemon-reload
-  systemd:
-    name: crowd
-    daemon_reload: yes
-  when:
-    - ansible_service_mgr == 'systemd'
-    - template_result is changed
-  changed_when: false
-  ignore_errors: yes
+- name: prepare files
+  file:
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0644') }}"
+    state: "{{ item.state | default('file') }}"
+  with_items:
+    - { dest: "/etc/init.d/crowd", mode: "0755" }
+    - { dest: "/etc/systemd/system/crowd.service" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "daemon", group: "daemon", mode: "0755" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "daemon", group: "daemon" }
+    - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "daemon", group: "daemon", mode: "0755" }
   tags: crowd
 
 - name: enable service
