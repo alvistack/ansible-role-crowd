@@ -44,6 +44,26 @@
     loop_var: "loop_var"
   tags: crowd
 
+- name: groupadd
+  group:
+    name: "crowd"
+    gid: "68095"
+    system: true
+    state: "present"
+  tags: crowd
+
+- name: useradd
+  user:
+    name: "crowd"
+    group: "crowd"
+    uid: "68095"
+    home: "/var/atlassian/application-data/crowd"
+    shell: "/usr/sbin/nologin"
+    system: true
+    create_home: false
+    state: "present"
+  tags: crowd
+
 - name: prepare directories
   file:
     dest: "{{ item.dest }}"
@@ -53,11 +73,11 @@
     state: "{{ item.state | default('directory') }}"
   with_items:
     - { dest: "/etc/init.d" }
-    - { dest: "/etc/systemd/system" }
-    - { dest: "/opt/atlassian/crowd", owner: "daemon", group: "daemon" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin", owner: "daemon", group: "daemon", mode: "0775" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf", owner: "daemon", group: "daemon", mode: "0775" }
-    - { dest: "/var/atlassian/application-data/crowd", owner: "daemon", group: "daemon" }
+    - { dest: "/lib/systemd/system" }
+    - { dest: "/opt/atlassian/crowd", owner: "crowd", group: "crowd" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin", owner: "crowd", group: "crowd", mode: "0775" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf", owner: "crowd", group: "crowd", mode: "0775" }
+    - { dest: "/var/atlassian/application-data/crowd", owner: "crowd", group: "crowd" }
   tags: crowd
 
 - name: unarchive package
@@ -70,7 +90,7 @@
     cd /opt/atlassian/crowd/apache-tomcat/lib
     rm -rf *postgresql*.jar
     curl -skL {{ postgresql_jdbc_download_url }} -O
-    chown -Rf daemon:daemon /opt/atlassian/crowd
+    chown -Rf crowd:crowd /opt/atlassian/crowd
   args:
     creates: "/opt/atlassian/crowd/start_crowd.sh"
   tags: crowd
@@ -90,7 +110,7 @@
     rm -rf apache-tomcat/webapps/ROOT
     rm -rf apache-tomcat/conf/Catalina/localhost/crowd.xml
     ./build.sh
-    chown -Rf daemon:daemon /opt/atlassian/crowd
+    chown -Rf crowd:crowd /opt/atlassian/crowd
   when: lineinfile_result is changed
   register: result
   changed_when: result is not succeeded
@@ -105,10 +125,10 @@
     mode: "{{ item.mode | default('0644') }}"
   with_items:
     - { dest: "/etc/init.d/crowd", mode: "0755" }
-    - { dest: "/etc/systemd/system/crowd.service" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "daemon", group: "daemon", mode: "0755" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "daemon", group: "daemon" }
-    - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "daemon", group: "daemon", mode: "0755" }
+    - { dest: "/lib/systemd/system/crowd.service" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "crowd", group: "crowd", mode: "0755" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "crowd", group: "crowd" }
+    - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "crowd", group: "crowd", mode: "0755" }
   notify:
     - systemctl daemon-reload
   tags: crowd
@@ -122,10 +142,10 @@
     state: "{{ item.state | default('file') }}"
   with_items:
     - { dest: "/etc/init.d/crowd", mode: "0755" }
-    - { dest: "/etc/systemd/system/crowd.service" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "daemon", group: "daemon", mode: "0755" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "daemon", group: "daemon" }
-    - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "daemon", group: "daemon", mode: "0755" }
+    - { dest: "/lib/systemd/system/crowd.service" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "crowd", group: "crowd", mode: "0755" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "crowd", group: "crowd" }
+    - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "crowd", group: "crowd", mode: "0755" }
   tags: crowd
 
 - name: enable service

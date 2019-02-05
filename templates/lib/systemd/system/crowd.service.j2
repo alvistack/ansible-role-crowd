@@ -9,8 +9,8 @@ ExecStart=/opt/atlassian/crowd/start_crowd.sh
 ExecStop=/opt/atlassian/crowd/stop_crowd.sh
 PIDFile=/opt/atlassian/crowd/apache-tomcat/work/catalina.pid
 Type=forking
-User=daemon
-Group=daemon
+User=crowd
+Group=crowd
 
 [Install]
 WantedBy=multi-user.target
