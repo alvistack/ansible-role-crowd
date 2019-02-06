@@ -47,7 +47,6 @@
 - name: groupadd
   group:
     name: "crowd"
-    gid: "68095"
     system: true
     state: "present"
   tags: crowd
@@ -56,7 +55,6 @@
   user:
     name: "crowd"
     group: "crowd"
-    uid: "68095"
     home: "/var/atlassian/application-data/crowd"
     shell: "/usr/sbin/nologin"
     system: true
