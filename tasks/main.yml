@@ -91,7 +91,7 @@
     curl -skL {{ postgresql_jdbc_download_url }} -O
     chown -Rf crowd:crowd /opt/atlassian/crowd
   args:
-    executable: /bin/bash
+    executable: "/bin/bash"
     creates: "/opt/atlassian/crowd/start_crowd.sh"
   tags: crowd
 
@@ -113,7 +113,7 @@
     ./build.sh
     chown -Rf crowd:crowd /opt/atlassian/crowd
   args:
-    executable: /bin/bash
+    executable: "/bin/bash"
   when: lineinfile_result is changed
   register: result
   changed_when: result is not succeeded
