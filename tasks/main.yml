@@ -91,6 +91,7 @@
     curl -skL {{ postgresql_jdbc_download_url }} -O
     chown -Rf crowd:crowd /opt/atlassian/crowd
   args:
+    executable: /bin/bash
     creates: "/opt/atlassian/crowd/start_crowd.sh"
   tags: crowd
 
