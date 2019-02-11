@@ -106,11 +106,14 @@
 
 - name: update build with ant
   shell: |
+    set -o pipefail
     cd /opt/atlassian/crowd
     rm -rf apache-tomcat/webapps/ROOT
     rm -rf apache-tomcat/conf/Catalina/localhost/crowd.xml
     ./build.sh
     chown -Rf crowd:crowd /opt/atlassian/crowd
+  args:
+    executable: /bin/bash
   when: lineinfile_result is changed
   register: result
   changed_when: result is not succeeded
