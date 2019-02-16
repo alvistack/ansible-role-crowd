@@ -80,6 +80,7 @@
 
 - name: unarchive package
   shell: |
+    set -o pipefail
     cd /opt/atlassian/crowd
     curl -skL {{ crowd_download_url }} | tar zxf - --strip-components=1
     cd /opt/atlassian/crowd/apache-tomcat/lib
@@ -90,6 +91,7 @@
     curl -skL {{ postgresql_jdbc_download_url }} -O
     chown -Rf crowd:crowd /opt/atlassian/crowd
   args:
+    executable: "/bin/bash"
     creates: "/opt/atlassian/crowd/start_crowd.sh"
   tags: crowd
 
@@ -104,11 +106,14 @@
 
 - name: update build with ant
   shell: |
+    set -o pipefail
     cd /opt/atlassian/crowd
     rm -rf apache-tomcat/webapps/ROOT
     rm -rf apache-tomcat/conf/Catalina/localhost/crowd.xml
     ./build.sh
     chown -Rf crowd:crowd /opt/atlassian/crowd
+  args:
+    executable: "/bin/bash"
   when: lineinfile_result is changed
   register: result
   changed_when: result is not succeeded
