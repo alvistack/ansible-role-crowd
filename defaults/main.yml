@@ -32,6 +32,6 @@ crowd_jvm_support_recommended_args: "-Datlassian.plugins.enable.wait=300 -XX:+Un
 crowd_session_timeout: "30"
 
 # URL for download archives.
-crowd_download_url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.3.4.tar.gz"
+crowd_download_url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.4.0.tar.gz"
 mysql_jdbc_download_url: "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.14.tar.gz"
 postgresql_jdbc_download_url: "https://jdbc.postgresql.org/download/postgresql-42.2.5.jar"
