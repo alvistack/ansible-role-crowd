@@ -33,9 +33,9 @@ crowd_session_timeout: "30"
 
 # URL for download archives.
 crowd_download:
-  url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.4.0.tar.gz"
-  dest: "/tmp/atlassian-crowd-3.4.0.tar.gz"
-  checksum: "sha1:6f6b1567ecfb8a58f631e49326f90574357ce0ef"
+  url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.4.3.tar.gz"
+  dest: "/tmp/atlassian-crowd-3.4.3.tar.gz"
+  checksum: "sha1:6af4f3ce4b48ee3d83d9f7908dcf79f5c8d3427e"
 mysql_jdbc_download:
   url: "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.14.tar.gz"
   dest: "/tmp/mysql-connector-java-8.0.14.tar.gz"
