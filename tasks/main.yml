@@ -164,6 +164,10 @@
     - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "crowd", group: "crowd", mode: "0755" }
   tags: crowd
 
+- name: flush handlers
+  meta: flush_handlers
+  tags: crowd
+
 - name: enable service
   service:
     name: crowd
