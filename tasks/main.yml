@@ -146,7 +146,7 @@
     - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "crowd", group: "crowd" }
     - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "crowd", group: "crowd", mode: "0755" }
   notify:
-    - systemctl daemon-reload
+    - crowd | systemctl daemon-reload
   tags: crowd
 
 - name: prepare files
