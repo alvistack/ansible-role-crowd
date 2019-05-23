@@ -107,6 +107,9 @@
   args:
     executable: "/bin/bash"
     creates: "/opt/atlassian/crowd/start_crowd.sh"
+  notify:
+    - crowd | systemctl daemon-reload
+    - crowd | systemctl restart
   tags: crowd
 
 - name: patch /opt/atlassian/crowd/build.properties
@@ -116,6 +119,9 @@
     line: "crowd.url=http://localhost:8095{{ crowd_catalina_context_path or '' }}"
     state: present
   register: lineinfile_result
+  notify:
+    - crowd | systemctl daemon-reload
+    - crowd | systemctl restart
   tags: crowd
 
 - name: update build with ant
@@ -131,6 +137,9 @@
   when: lineinfile_result is changed
   register: result
   changed_when: result is not succeeded
+  notify:
+    - crowd | systemctl daemon-reload
+    - crowd | systemctl restart
   tags: crowd
 
 - name: copy templates
@@ -148,6 +157,7 @@
     - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "crowd", group: "crowd", mode: "0755" }
   notify:
     - crowd | systemctl daemon-reload
+    - crowd | systemctl restart
   tags: crowd
 
 - name: prepare files
@@ -163,6 +173,9 @@
     - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "crowd", group: "crowd", mode: "0755" }
     - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "crowd", group: "crowd" }
     - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "crowd", group: "crowd", mode: "0755" }
+  notify:
+    - crowd | systemctl daemon-reload
+    - crowd | systemctl restart
   tags: crowd
 
 - name: flush handlers
