@@ -173,9 +173,6 @@
     - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "crowd", group: "crowd", mode: "0755" }
     - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "crowd", group: "crowd" }
     - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "crowd", group: "crowd", mode: "0755" }
-  notify:
-    - crowd | systemctl daemon-reload
-    - crowd | systemctl restart
   tags: crowd
 
 - name: flush handlers
