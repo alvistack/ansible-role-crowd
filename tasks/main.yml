@@ -184,8 +184,10 @@
 
 - name: enable service
   service:
-    name: crowd
+    name: "{{ item.name }}"
     enabled: true
+  with_items:
+    - { name: "crowd" }
   changed_when: false
   ignore_errors: true
   tags: crowd
