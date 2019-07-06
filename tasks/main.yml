@@ -73,7 +73,7 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0755') }}"
     state: "{{ item.state | default('directory') }}"
-  with_items:
+  loop:
     - { dest: "/etc/init.d" }
     - { dest: "/lib/systemd/system" }
     - { dest: "/opt/atlassian/crowd", owner: "crowd", group: "crowd" }
@@ -87,7 +87,7 @@
     url: "{{ item.url }}"
     dest: "{{ item.dest }}"
     checksum: "{{ item.checksum }}"
-  with_items:
+  loop:
     - "{{ crowd_download }}"
     - "{{ mysql_jdbc_download }}"
     - "{{ postgresql_jdbc_download }}"
@@ -152,7 +152,7 @@
     owner: "{{ item.owner | default('root') }}"
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
-  with_items:
+  loop:
     - { dest: "/etc/init.d/crowd", mode: "0755" }
     - { dest: "/lib/systemd/system/crowd.service" }
     - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "crowd", group: "crowd", mode: "0755" }
@@ -170,7 +170,7 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
     state: "{{ item.state | default('file') }}"
-  with_items:
+  loop:
     - { dest: "/etc/init.d/crowd", mode: "0755" }
     - { dest: "/lib/systemd/system/crowd.service" }
     - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "crowd", group: "crowd", mode: "0755" }
@@ -186,7 +186,7 @@
   service:
     name: "{{ item.name }}"
     enabled: true
-  with_items:
+  loop:
     - { name: "crowd" }
   changed_when: false
   ignore_errors: true
