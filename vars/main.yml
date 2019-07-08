@@ -15,6 +15,10 @@
 # limitations under the License.
 
 _crowd_download:
+  3.5.0:
+    url: "https://product-downloads.atlassian.com/software/crowd/downloads/crowd-standalone-distribution-3.5.0.tar.gz"
+    dest: "/tmp/crowd-standalone-distribution-3.5.0.tar.gz"
+    checksum: "sha1:b0a4ff8ac512bf0f90080bfe8043aee34a8f84a2"
   3.4.5:
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.4.5.tar.gz"
     dest: "/tmp/atlassian-crowd-3.4.5.tar.gz"
