@@ -17,37 +17,37 @@
 _crowd_download:
   3.5.0:
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/crowd-standalone-distribution-3.5.0.tar.gz"
-    dest: "/tmp/crowd-standalone-distribution-3.5.0.tar.gz"
+    dest: "/var/cache/ansible/crowd-standalone-distribution-3.5.0.tar.gz"
     checksum: "sha1:b0a4ff8ac512bf0f90080bfe8043aee34a8f84a2"
   3.4.5:
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.4.5.tar.gz"
-    dest: "/tmp/atlassian-crowd-3.4.5.tar.gz"
+    dest: "/var/cache/ansible/atlassian-crowd-3.4.5.tar.gz"
     checksum: "sha1:414842d067d9c74caacc3ae02333d2743c10dddb"
   3.4.4:
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.4.4.tar.gz"
-    dest: "/tmp/atlassian-crowd-3.4.4.tar.gz"
+    dest: "/var/cache/ansible/atlassian-crowd-3.4.4.tar.gz"
     checksum: "sha1:6830c88f249a4fb5833a77f18d787f7829b80e68"
   3.3.6:
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.3.6.tar.gz"
-    dest: "/tmp/atlassian-crowd-3.3.6.tar.gz"
+    dest: "/var/cache/ansible/atlassian-crowd-3.3.6.tar.gz"
     checksum: "sha1:f375df02630e831a1631537722c21943a23a4a7d"
 
 _mysql_jdbc_download:
   8.0.16:
     url: "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.16.tar.gz"
-    dest: "/tmp/mysql-connector-java-8.0.16.tar.gz"
+    dest: "/var/cache/ansible/mysql-connector-java-8.0.16.tar.gz"
     checksum: "sha1:12a12227640d00c8e249b81c7818c12e4ad943ba"
   5.1.47:
     url: "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.47.tar.gz"
-    dest: "/tmp/mysql-connector-java-5.1.47.tar.gz"
+    dest: "/var/cache/ansible/mysql-connector-java-5.1.47.tar.gz"
     checksum: "sha1:abf720d4e48fabcf677653a9f61993e093526616"
 
 _postgresql_jdbc_download:
   42.2.6:
     url: "https://jdbc.postgresql.org/download/postgresql-42.2.6.jar"
-    dest: "/tmp/postgresql-42.2.6.jar"
+    dest: "/var/cache/ansible/postgresql-42.2.6.jar"
     checksum: "sha1:58586d617d57746853fc0b8f37c83a8384fcd0ca"
   42.2.5:
     url: "https://jdbc.postgresql.org/download/postgresql-42.2.5.jar"
-    dest: "/tmp/postgresql-42.2.5.jar"
+    dest: "/var/cache/ansible/postgresql-42.2.5.jar"
     checksum: "sha1:951b7eda125f3137538a94e2cbdcf744088ad4c2"

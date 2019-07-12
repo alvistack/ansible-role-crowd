@@ -80,6 +80,9 @@
     - { dest: "/opt/atlassian/crowd/apache-tomcat/bin", owner: "crowd", group: "crowd", mode: "0775" }
     - { dest: "/opt/atlassian/crowd/apache-tomcat/conf", owner: "crowd", group: "crowd", mode: "0775" }
     - { dest: "/var/atlassian/application-data/crowd", owner: "crowd", group: "crowd" }
+    - { dest: "{{ crowd_download.dest | dirname }}" }
+    - { dest: "{{ mysql_jdbc_download.dest | dirname }}" }
+    - { dest: "{{ postgresql_jdbc_download.dest | dirname }}" }
   tags: crowd
 
 - name: download archive
