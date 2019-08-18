@@ -1,10 +1,27 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- {{ ansible_managed }} -->
 <Server port="8020" shutdown="SHUTDOWN">
 
     <Service name="Catalina">
 
-        <Connector URIEncoding="UTF-8" acceptCount="100" compressableMimeType="text/html,text/xml,application/xml,text/plain,text/css,application/json,application/javascript,application/x-javascript" compression="on" connectionTimeout="20000" disableUploadTimeout="true" enableLookups="false" maxHttpHeaderSize="8192" maxThreads="150" minSpareThreads="25" port="8095" redirectPort="8443" sendReasonPhrase="true" useBodyEncodingForURI="true" proxyName="${catalina.connector.proxyName}" proxyPort="${catalina.connector.proxyPort}" scheme="${catalina.connector.scheme}" secure="${catalina.connector.secure}"/>
+        <Connector acceptCount="100"
+                   connectionTimeout="20000"
+                   disableUploadTimeout="true"
+                   enableLookups="false"
+                   maxHttpHeaderSize="8192"
+                   maxThreads="150"
+                   minSpareThreads="25"
+                   port="8095"
+                   redirectPort="8443"
+                   useBodyEncodingForURI="true"
+                   URIEncoding="UTF-8"
+                   compression="on"
+                   sendReasonPhrase="true"
+                   proxyName="${catalina.connector.proxyName}"
+                   proxyPort="${catalina.connector.proxyPort}"
+                   scheme="${catalina.connector.scheme}"
+                   secure="${catalina.connector.secure}"
+                   compressableMimeType="text/html,text/xml,application/xml,text/plain,text/css,application/json,application/javascript,application/x-javascript" />
 
         <Engine defaultHost="localhost" name="Catalina">
             <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
@@ -25,7 +42,7 @@
     <Listener className="org.apache.catalina.security.SecurityListener" />
     -->
     <!--APR library loader. Documentation at /docs/apr.html -->
-    <Listener SSLEngine="on" className="org.apache.catalina.core.AprLifecycleListener"/>
+    <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
     <!-- Prevent memory leaks due to use of particular java/javax APIs-->
     <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
     <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
