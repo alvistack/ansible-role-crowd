@@ -32,8 +32,8 @@
   tasks:
     - name: start service
       service:
-        name: crowd
-        state: started
+        name: "crowd"
+        state: "started"
       changed_when: false
       ignore_errors: true
 
