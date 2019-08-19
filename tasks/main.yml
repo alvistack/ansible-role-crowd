@@ -94,25 +94,25 @@
     - "{{ crowd_download }}"
     - "{{ mysql_jdbc_download }}"
     - "{{ postgresql_jdbc_download }}"
-  register: result
-  until: result is succeeded
+  register: get_url_result
+  until: get_url_result is succeeded
   tags: crowd
 
 - name: unarchive package
   shell: |
     set -o pipefail
     cd /opt/atlassian/crowd
-    tar zxf {{ crowd_download.dest }} --strip-components=1
+    TMP_DIR="`mktemp -d`" && tar -zx -C $TMP_DIR -f {{ crowd_download.dest }} && rsync -aq --delete $TMP_DIR/*/ . && rm -rf $TMP_DIR
     cd /opt/atlassian/crowd/apache-tomcat/lib
     rm -rf *mysql*.jar
-    tar zxf {{ mysql_jdbc_download.dest }} --strip-components=1 --wildcards "mysql*/*mysql*.jar"
+    TMP_DIR="`mktemp -d`" && tar -zx -C $TMP_DIR -f {{ mysql_jdbc_download.dest }} && mv $TMP_DIR/*/*mysql*-bin.jar . && rm -rf $TMP_DIR
     cd /opt/atlassian/crowd/apache-tomcat/lib
     rm -rf *postgresql*.jar
     cp {{ postgresql_jdbc_download.dest }} .
     chown -Rf crowd:crowd /opt/atlassian/crowd
   args:
     executable: "/bin/bash"
-    creates: "/opt/atlassian/crowd/start_crowd.sh"
+  when: get_url_result is changed
   notify:
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart
@@ -187,10 +187,8 @@
 
 - name: enable service
   service:
-    name: "{{ item.name }}"
+    name: "crowd"
     enabled: true
-  loop:
-    - { name: "crowd" }
   changed_when: false
   ignore_errors: true
   tags: crowd
