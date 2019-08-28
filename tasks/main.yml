@@ -77,8 +77,8 @@
     - { dest: "/etc/init.d" }
     - { dest: "/lib/systemd/system" }
     - { dest: "/opt/atlassian/crowd", owner: "crowd", group: "crowd" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin", owner: "crowd", group: "crowd", mode: "0775" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf", owner: "crowd", group: "crowd", mode: "0775" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin", owner: "crowd", group: "crowd" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf", owner: "crowd", group: "crowd" }
     - { dest: "/var/atlassian/application-data/crowd", owner: "crowd", group: "crowd" }
     - { dest: "{{ crowd_download.dest | dirname }}" }
     - { dest: "{{ mysql_jdbc_download.dest | dirname }}" }
@@ -110,6 +110,7 @@
     rm -rf *postgresql*.jar
     cp {{ postgresql_jdbc_download.dest }} .
     chown -Rf crowd:crowd /opt/atlassian/crowd
+    chmod 0755 /opt/atlassian/crowd /opt/atlassian/crowd/apache-tomcat/bin /opt/atlassian/crowd/apache-tomcat/conf
   args:
     executable: "/bin/bash"
   when: get_url_result is changed
