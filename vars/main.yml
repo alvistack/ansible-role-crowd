@@ -15,6 +15,10 @@
 # limitations under the License.
 
 _crowd_download:
+  3.6.0:
+    url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.6.0.tar.gz"
+    dest: "/var/cache/ansible/atlassian-crowd-3.6.0.tar.gz"
+    checksum: "sha1:dff778ed411b70bf91ced4668814f3ec2d01c46d"
   3.5.1:
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.5.1.tar.gz"
     dest: "/var/cache/ansible/atlassian-crowd-3.5.1.tar.gz"
