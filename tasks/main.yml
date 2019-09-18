@@ -50,15 +50,15 @@
 
 - name: groupadd
   group:
-    name: "crowd"
+    name: "{{ crowd_group }}"
     system: true
     state: "present"
   tags: crowd
 
 - name: useradd
   user:
-    name: "crowd"
-    group: "crowd"
+    name: "{{ crowd_owner }}"
+    group: "{{ crowd_group }}"
     home: "/var/atlassian/application-data/crowd"
     shell: "/usr/sbin/nologin"
     system: true
@@ -76,10 +76,10 @@
   loop:
     - { dest: "/etc/init.d" }
     - { dest: "/lib/systemd/system" }
-    - { dest: "/opt/atlassian/crowd", owner: "crowd", group: "crowd" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin", owner: "crowd", group: "crowd" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf", owner: "crowd", group: "crowd" }
-    - { dest: "/var/atlassian/application-data/crowd", owner: "crowd", group: "crowd" }
+    - { dest: "/opt/atlassian/crowd", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}" }
+    - { dest: "/var/atlassian/application-data/crowd", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}" }
     - { dest: "{{ crowd_download.dest | dirname }}" }
     - { dest: "{{ mysql_jdbc_download.dest | dirname }}" }
     - { dest: "{{ postgresql_jdbc_download.dest | dirname }}" }
@@ -159,9 +159,9 @@
   loop:
     - { dest: "/etc/init.d/crowd", mode: "0755" }
     - { dest: "/lib/systemd/system/crowd.service" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "crowd", group: "crowd", mode: "0755" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "crowd", group: "crowd" }
-    - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "crowd", group: "crowd", mode: "0755" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0755" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}" }
+    - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0755" }
   notify:
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart
@@ -177,9 +177,9 @@
   loop:
     - { dest: "/etc/init.d/crowd", mode: "0755" }
     - { dest: "/lib/systemd/system/crowd.service" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "crowd", group: "crowd", mode: "0755" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "crowd", group: "crowd" }
-    - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "crowd", group: "crowd", mode: "0755" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0755" }
+    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}" }
+    - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0755" }
   tags: crowd
 
 - name: flush handlers

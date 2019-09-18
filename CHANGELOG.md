@@ -4,6 +4,8 @@
 
 ### Major Changes
 
+  - Abstract `crowd_owner` and `crowd_group` as variable
+
 ## 3.4.0 - 2019-09-18
 
 ### Major Changes

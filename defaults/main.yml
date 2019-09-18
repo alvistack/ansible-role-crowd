@@ -32,6 +32,10 @@ postgresql_jdbc_version: "42.2.8"
 # PostgreSQL JDBC download details.
 postgresql_jdbc_download: "{{ _postgresql_jdbc_download[postgresql_jdbc_version] }}"
 
+# Owner and group for Crowd.
+crowd_owner: "crowd"
+crowd_group: "crowd"
+
 # JVM minimal and maximum memory usage.
 crowd_jvm_minimum_memory: "128m"
 crowd_jvm_maximum_memory: "512m"
