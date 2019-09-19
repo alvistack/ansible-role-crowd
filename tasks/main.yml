@@ -59,7 +59,7 @@
   user:
     name: "{{ crowd_owner }}"
     group: "{{ crowd_group }}"
-    home: "/var/atlassian/application-data/crowd"
+    home: "{{ crowd_home }}"
     shell: "/usr/sbin/nologin"
     system: true
     create_home: false
@@ -76,13 +76,21 @@
   loop:
     - { dest: "/etc/init.d" }
     - { dest: "/lib/systemd/system" }
-    - { dest: "/opt/atlassian/crowd", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}" }
-    - { dest: "/var/atlassian/application-data/crowd", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}" }
     - { dest: "{{ crowd_download.dest | dirname }}" }
     - { dest: "{{ mysql_jdbc_download.dest | dirname }}" }
     - { dest: "{{ postgresql_jdbc_download.dest | dirname }}" }
+    - dest: "{{ crowd_catalina }}"
+      owner: "{{ crowd_owner }}"
+      group: "{{ crowd_group }}"
+    - dest: "{{ crowd_catalina }}/apache-tomcat/bin"
+      owner: "{{ crowd_owner }}"
+      group: "{{ crowd_group }}"
+    - dest: "{{ crowd_catalina }}/apache-tomcat/conf"
+      owner: "{{ crowd_owner }}"
+      group: "{{ crowd_group }}"
+    - dest: "{{ crowd_home }}"
+      owner: "{{ crowd_owner }}"
+      group: "{{ crowd_group }}"
   tags: crowd
 
 - name: download archive
@@ -101,16 +109,25 @@
 - name: unarchive package
   shell: |
     set -o pipefail
-    cd /opt/atlassian/crowd
-    TMP_DIR="`mktemp -d`" && tar -zx -C $TMP_DIR -f {{ crowd_download.dest }} && rsync -aq --delete $TMP_DIR/*/ . && rm -rf $TMP_DIR
-    cd /opt/atlassian/crowd/apache-tomcat/lib
+    cd {{ crowd_catalina }}
+    TMP_DIR="`mktemp -d`" \
+      && tar -zx -C $TMP_DIR -f {{ crowd_download.dest }} \
+      && rsync -aq --delete $TMP_DIR/*/ . \
+      && rm -rf $TMP_DIR
+    cd {{ crowd_catalina }}/apache-tomcat/lib
     rm -rf *mysql*.jar
-    TMP_DIR="`mktemp -d`" && tar -zx -C $TMP_DIR -f {{ mysql_jdbc_download.dest }} && mv $TMP_DIR/*/*mysql*-bin.jar . && rm -rf $TMP_DIR
-    cd /opt/atlassian/crowd/apache-tomcat/lib
+    TMP_DIR="`mktemp -d`" \
+      && tar -zx -C $TMP_DIR -f {{ mysql_jdbc_download.dest }} \
+      && mv $TMP_DIR/*/*mysql*-bin.jar . \
+      && rm -rf $TMP_DIR
+    cd {{ crowd_catalina }}/apache-tomcat/lib
     rm -rf *postgresql*.jar
     cp {{ postgresql_jdbc_download.dest }} .
-    chown -Rf crowd:crowd /opt/atlassian/crowd
-    chmod 0755 /opt/atlassian/crowd /opt/atlassian/crowd/apache-tomcat/bin /opt/atlassian/crowd/apache-tomcat/conf
+    chown -Rf crowd:crowd {{ crowd_catalina }}
+    chmod 0755 \
+      {{ crowd_catalina }} \
+      {{ crowd_catalina }}/apache-tomcat/bin \
+      {{ crowd_catalina }}/apache-tomcat/conf
   args:
     executable: "/bin/bash"
   when: get_url_result is changed
@@ -119,9 +136,9 @@
     - crowd | systemctl restart
   tags: crowd
 
-- name: patch /opt/atlassian/crowd/build.properties
+- name: patch {{ crowd_catalina }}/build.properties
   lineinfile:
-    path: "/opt/atlassian/crowd/build.properties"
+    path: "{{ crowd_catalina }}/build.properties"
     regexp: "^crowd.url="
     line: "crowd.url=http://localhost:8095{{ crowd_catalina_context_path or '' }}"
     state: present
@@ -134,11 +151,11 @@
 - name: update build with ant
   shell: |
     set -o pipefail
-    cd /opt/atlassian/crowd
+    cd {{ crowd_catalina }}
     rm -rf apache-tomcat/webapps/ROOT
     rm -rf apache-tomcat/conf/Catalina/localhost/crowd.xml
     ./build.sh
-    chown -Rf crowd:crowd /opt/atlassian/crowd
+    chown -Rf crowd:crowd {{ crowd_catalina }}
   args:
     executable: "/bin/bash"
   when: lineinfile_result is changed
@@ -159,9 +176,20 @@
   loop:
     - { dest: "/etc/init.d/crowd", mode: "0755" }
     - { dest: "/lib/systemd/system/crowd.service" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0755" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}" }
-    - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0755" }
+    - dest: "{{ crowd_catalina }}/apache-tomcat/bin/setenv.sh"
+      src: "./templates/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh.j2"
+      owner: "{{ crowd_owner }}"
+      group: "{{ crowd_group }}"
+      mode: "0755"
+    - dest: "{{ crowd_catalina }}/apache-tomcat/conf/server.xml"
+      src: "./templates/opt/atlassian/crowd/apache-tomcat/conf/server.xml.j2"
+      owner: "{{ crowd_owner }}"
+      group: "{{ crowd_group }}"
+    - dest: "{{ crowd_catalina }}/start_crowd.sh"
+      src: "./templates/opt/atlassian/crowd/start_crowd.sh.j2"
+      owner: "{{ crowd_owner }}"
+      group: "{{ crowd_group }}"
+      mode: "0755"
   notify:
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart
@@ -177,9 +205,17 @@
   loop:
     - { dest: "/etc/init.d/crowd", mode: "0755" }
     - { dest: "/lib/systemd/system/crowd.service" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0755" }
-    - { dest: "/opt/atlassian/crowd/apache-tomcat/conf/server.xml", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}" }
-    - { dest: "/opt/atlassian/crowd/start_crowd.sh", owner: "{{ crowd_owner }}", group: "{{ crowd_group }}", mode: "0755" }
+    - dest: "{{ crowd_catalina }}/apache-tomcat/bin/setenv.sh"
+      owner: "{{ crowd_owner }}"
+      group: "{{ crowd_group }}"
+      mode: "0755"
+    - dest: "{{ crowd_catalina }}/apache-tomcat/conf/server.xml"
+      owner: "{{ crowd_owner }}"
+      group: "{{ crowd_group }}"
+    - dest: "{{ crowd_catalina }}/start_crowd.sh"
+      owner: "{{ crowd_owner }}"
+      group: "{{ crowd_group }}"
+      mode: "0755"
   tags: crowd
 
 - name: flush handlers

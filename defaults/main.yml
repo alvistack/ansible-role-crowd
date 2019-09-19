@@ -36,6 +36,12 @@ postgresql_jdbc_download: "{{ _postgresql_jdbc_download[postgresql_jdbc_version]
 crowd_owner: "crowd"
 crowd_group: "crowd"
 
+# Crowd home directory.
+crowd_home: "/var/atlassian/application-data/crowd"
+
+# Crowd installation directory.
+crowd_catalina: "/opt/atlassian/crowd"
+
 # JVM minimal and maximum memory usage.
 crowd_jvm_minimum_memory: "128m"
 crowd_jvm_maximum_memory: "512m"
