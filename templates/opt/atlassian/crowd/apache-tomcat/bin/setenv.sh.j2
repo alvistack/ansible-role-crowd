@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 
-CROWD_HOME=${CROWD_HOME:-"/var/atlassian/application-data/crowd"}
-CROWD_CATALINA=${CROWD_CATALINA:-"/opt/atlassian/crowd"}
+CROWD_HOME=${CROWD_HOME:-"{{ crowd_home }}"}
+CROWD_CATALINA=${CROWD_CATALINA:-"{{ crowd_catalina }}"}
 
 JAVA_OPTS="-Xms${JVM_MINIMUM_MEMORY:-"{{ crowd_jvm_minimum_memory }}"} -Xmx${JVM_MAXIMUM_MEMORY:-"{{ crowd_jvm_maximum_memory }}"} ${JVM_SUPPORT_RECOMMENDED_ARGS:-"{{ crowd_jvm_support_recommended_args }}"} -Dfile.encoding=UTF-8 $JAVA_OPTS"
 
