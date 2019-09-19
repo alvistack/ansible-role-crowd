@@ -5,12 +5,12 @@ Description=Atlassian Crowd
 After=syslog.target network.target
 
 [Service]
-ExecStart={{ crowd_catalina }}/start_crowd.sh
-ExecStop={{ crowd_catalina }}/stop_crowd.sh
-PIDFile={{ crowd_catalina }}/apache-tomcat/work/catalina.pid
 Type=forking
 User={{ crowd_owner }}
 Group={{ crowd_group }}
+ExecStart={{ crowd_catalina }}/start_crowd.sh
+ExecStop={{ crowd_catalina }}/stop_crowd.sh
+PIDFile={{ crowd_catalina }}/apache-tomcat/work/catalina.pid
 
 [Install]
 WantedBy=multi-user.target
