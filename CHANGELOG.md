@@ -4,6 +4,8 @@
 
 ### Major Changes
 
+  - Default with Python 3
+  - Revamp molecule test with vagrant
   - Abstract `crowd_owner` and `crowd_group` as variable
   - Abstract `crowd_home` and `crowd_catalina` as variable
 
