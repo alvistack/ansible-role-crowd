@@ -124,7 +124,7 @@
     cd {{ crowd_catalina }}/apache-tomcat/lib
     rm -rf *postgresql*.jar
     cp {{ postgresql_jdbc_download.dest }} .
-    chown -Rf crowd:crowd {{ crowd_catalina }}
+    chown -Rf {{ crowd_owner }}:{{ crowd_group }} {{ crowd_catalina }}
     chmod 0755 \
       {{ crowd_catalina }} \
       {{ crowd_catalina }}/apache-tomcat/bin \
