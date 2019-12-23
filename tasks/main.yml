@@ -153,9 +153,8 @@
   shell: |
     set -o pipefail
     cd {{ crowd_catalina }}
-    rm -rf apache-tomcat/webapps/ROOT
-    rm -rf apache-tomcat/conf/Catalina/localhost/crowd.xml
     ./build.sh
+    rm -rf apache-tomcat/conf/Catalina/localhost
     chown -Rf crowd:crowd {{ crowd_catalina }}
   args:
     executable: "/bin/bash"
