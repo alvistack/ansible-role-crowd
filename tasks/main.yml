@@ -110,7 +110,8 @@
 - name: unarchive package
   shell: |
     set -o pipefail
-    rm -rf {{ crowd_catalina }} && mkdir -p {{ crowd_catalina }}
+    rm -rf {{ crowd_catalina }} \
+      && mkdir -p {{ crowd_catalina }}
     cd {{ crowd_catalina }}
     TMP_DIR="`mktemp -d`" \
       && tar -zx -C $TMP_DIR -f {{ crowd_download.dest }} \
