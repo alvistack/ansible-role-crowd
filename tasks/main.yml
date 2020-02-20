@@ -222,14 +222,6 @@
       mode: "0755"
   tags: crowd
 
-- name: enable service
-  service:
-    name: "crowd"
-    enabled: true
-  changed_when: false
-  ignore_errors: true
-  tags: crowd
-
 - name: flush handlers
   meta: flush_handlers
   tags: crowd
@@ -238,6 +230,7 @@
   service:
     name: "crowd"
     state: "started"
+    enabled: true
   changed_when: false
   ignore_errors: true
   tags: crowd
