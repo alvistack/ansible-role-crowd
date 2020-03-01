@@ -15,6 +15,10 @@
 # limitations under the License.
 
 _crowd_download:
+  4.0.0:
+    url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.0.0.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/atlassian-crowd-4.0.0.tar.gz"
+    checksum: "sha1:fb5f80f322fd178d051915ff3cd43e64eef6c56c"
   3.7.1:
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.7.1.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/atlassian-crowd-3.7.1.tar.gz"
@@ -23,10 +27,6 @@ _crowd_download:
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.7.0.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/atlassian-crowd-3.7.0.tar.gz"
     checksum: "sha1:cdadbc758ad12b0ff62de3fa723e2cd60d2d8d7f"
-  3.6.0:
-    url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-3.6.0.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/atlassian-crowd-3.6.0.tar.gz"
-    checksum: "sha1:dff778ed411b70bf91ced4668814f3ec2d01c46d"
 
 _mysql_jdbc_download:
   5.1.48:
