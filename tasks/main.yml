@@ -223,7 +223,7 @@
   meta: flush_handlers
   tags: crowd
 
-- name: start service
+- name: systemctl start crowd
   service:
     name: "crowd"
     state: "started"
