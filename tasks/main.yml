@@ -219,10 +219,6 @@
       mode: "0755"
   tags: crowd
 
-- name: flush handlers
-  meta: flush_handlers
-  tags: crowd
-
 - name: systemctl start crowd
   service:
     name: "crowd"
@@ -230,4 +226,8 @@
     enabled: true
   changed_when: false
   ignore_errors: true
+  tags: crowd
+
+- name: flush handlers
+  meta: flush_handlers
   tags: crowd
