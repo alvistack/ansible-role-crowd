@@ -20,7 +20,7 @@
   changed_when: false
   ignore_errors: true
 
-- name: crowd | systemctl restart
+- name: crowd | systemctl restart crowd
   service:
     name: "crowd"
     state: "restarted"
