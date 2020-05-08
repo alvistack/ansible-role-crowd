@@ -21,7 +21,7 @@ crowd_version: "4.0.0"
 crowd_download: "{{ _crowd_download[crowd_version] }}"
 
 # MySQL JDBC version.
-mysql_jdbc_version: "5.1.48"
+mysql_jdbc_version: "5.1.49"
 
 # MySQL JDBC download details.
 mysql_jdbc_download: "{{ _mysql_jdbc_download[mysql_jdbc_version] }}"
