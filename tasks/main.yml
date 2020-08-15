@@ -145,6 +145,7 @@
     path: "{{ crowd_catalina }}/build.properties"
     regexp: "^crowd.url="
     line: "crowd.url=http://localhost:8095{{ crowd_catalina_context_path or '' }}"
+    mode: "0644"
     state: present
   register: lineinfile_result
   notify:
