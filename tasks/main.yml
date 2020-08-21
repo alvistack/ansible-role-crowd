@@ -99,6 +99,7 @@
     url: "{{ item.url }}"
     dest: "{{ item.dest }}"
     checksum: "{{ item.checksum }}"
+    mode: "{{ item.mode | default('0644') }}"
     timeout: 300
   loop:
     - "{{ crowd_download }}"
@@ -141,12 +142,15 @@
   tags: crowd
 
 - name: patch {{ crowd_catalina }}/build.properties
-  lineinfile:
+  ini_file:
     path: "{{ crowd_catalina }}/build.properties"
-    regexp: "^crowd.url="
-    line: "crowd.url=http://localhost:8095{{ crowd_catalina_context_path or '' }}"
-    state: present
-  register: lineinfile_result
+    section: ""
+    option: "crowd.url"
+    value: "http://localhost:8095{{ crowd_catalina_context_path or '' }}"
+    mode: "0644"
+    no_extra_spaces: true
+    state: "present"
+  register: ini_file_result
   notify:
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd
@@ -161,7 +165,7 @@
     chown -Rf crowd:crowd {{ crowd_catalina }}
   args:
     executable: "/bin/bash"
-  when: lineinfile_result is changed
+  when: ini_file_result is changed
   register: result
   changed_when: result is not succeeded
   notify:
