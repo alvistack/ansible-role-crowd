@@ -75,6 +75,7 @@
     state: "{{ item.state | default('directory') }}"
   loop:
     - { dest: "/lib/systemd/system" }
+    - { dest: "/lib/systemd/system/crowd.service.d" }
     - { dest: "{{ crowd_download.dest | dirname }}" }
     - { dest: "{{ mysql_jdbc_download.dest | dirname }}" }
     - { dest: "{{ postgresql_jdbc_download.dest | dirname }}" }
@@ -138,7 +139,7 @@
   when: get_url_result is changed
   notify:
     - crowd | systemctl daemon-reload
-    - crowd | systemctl restart crowd
+    - crowd | systemctl restart crowd.service
   tags: crowd
 
 - name: patch {{ crowd_catalina }}/build.properties
@@ -153,7 +154,7 @@
   register: ini_file_result
   notify:
     - crowd | systemctl daemon-reload
-    - crowd | systemctl restart crowd
+    - crowd | systemctl restart crowd.service
   tags: crowd
 
 - name: update build with ant
@@ -170,7 +171,7 @@
   changed_when: result is not succeeded
   notify:
     - crowd | systemctl daemon-reload
-    - crowd | systemctl restart crowd
+    - crowd | systemctl restart crowd.service
   tags: crowd
 
 - name: copy templates
@@ -198,7 +199,7 @@
       mode: "0755"
   notify:
     - crowd | systemctl daemon-reload
-    - crowd | systemctl restart crowd
+    - crowd | systemctl restart crowd.service
   tags: crowd
 
 - name: prepare files
@@ -223,9 +224,9 @@
       mode: "0755"
   tags: crowd
 
-- name: systemctl start crowd
+- name: systemctl start crowd.service
   service:
-    name: "crowd"
+    name: "crowd.service"
     state: "started"
     enabled: true
   changed_when: false
