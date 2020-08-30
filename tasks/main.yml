@@ -181,6 +181,7 @@
     owner: "{{ item.owner | default('root') }}"
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
+    backup: true
   loop:
     - { dest: "/lib/systemd/system/crowd.service" }
     - dest: "{{ crowd_catalina }}/apache-tomcat/bin/setenv.sh"
