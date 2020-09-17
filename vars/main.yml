@@ -15,6 +15,10 @@
 # limitations under the License.
 
 _crowd_download:
+  4.1.1:
+    url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.1.1.tar.gz"
+    dest: "{{ ansible_user_dir }}/.ansible/tmp/atlassian-crowd-4.1.1.tar.gz"
+    checksum: "sha1:72f356c03e405f98c031d6f67a359645aa46b34f"
   4.1.0:
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.1.0.tar.gz"
     dest: "{{ ansible_user_dir }}/.ansible/tmp/atlassian-crowd-4.1.0.tar.gz"
