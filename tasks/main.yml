@@ -222,6 +222,9 @@
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
       mode: "0755"
+  notify:
+    - crowd | systemctl daemon-reload
+    - crowd | systemctl restart crowd.service
   tags: crowd
 
 - name: systemctl start crowd.service
