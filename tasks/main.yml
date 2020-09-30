@@ -16,7 +16,6 @@
 
 - name: include default variables
   include_vars: "../vars/main.yml"
-  tags: crowd
 
 - name: include release specific variables
   include_vars: "{{ lookup('first_found', _params) }}"
@@ -31,7 +30,6 @@
       paths:
         - "../vars"
   ignore_errors: true
-  tags: crowd
 
 - name: include release specific tasks
   include_tasks: "{{ lookup('first_found', _params) }}"
@@ -46,14 +44,12 @@
       paths:
         - "."
   ignore_errors: true
-  tags: crowd
 
 - name: groupadd
   group:
     name: "{{ crowd_group }}"
     system: true
     state: "present"
-  tags: crowd
 
 - name: useradd
   user:
@@ -64,7 +60,6 @@
     system: true
     create_home: false
     state: "present"
-  tags: crowd
 
 - name: prepare directories
   file:
@@ -91,7 +86,6 @@
     - dest: "{{ crowd_home }}"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
-  tags: crowd
 
 - name: download archive
   vars:
@@ -108,7 +102,6 @@
     - "{{ postgresql_jdbc_download }}"
   register: get_url_result
   until: get_url_result is succeeded
-  tags: crowd
 
 - name: unarchive package
   shell: |
@@ -140,7 +133,6 @@
   notify:
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
-  tags: crowd
 
 - name: patch {{ crowd_catalina }}/build.properties
   ini_file:
@@ -155,7 +147,6 @@
   notify:
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
-  tags: crowd
 
 - name: update build with ant
   shell: |
@@ -172,7 +163,6 @@
   notify:
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
-  tags: crowd
 
 - name: copy templates
   template:
@@ -200,7 +190,6 @@
   notify:
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
-  tags: crowd
 
 - name: prepare files
   file:
@@ -225,7 +214,6 @@
   notify:
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
-  tags: crowd
 
 - name: systemctl start crowd.service
   service:
@@ -234,8 +222,6 @@
     enabled: true
   changed_when: false
   ignore_errors: true
-  tags: crowd
 
 - name: flush handlers
   meta: flush_handlers
-  tags: crowd
