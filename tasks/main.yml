@@ -215,6 +215,9 @@
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
 
+- name: flush handlers
+  meta: flush_handlers
+
 - name: systemctl start crowd.service
   service:
     name: "crowd.service"
@@ -222,6 +225,3 @@
     enabled: true
   changed_when: false
   ignore_errors: true
-
-- name: flush handlers
-  meta: flush_handlers
