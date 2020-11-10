@@ -43,8 +43,8 @@ crowd_home: "/var/atlassian/application-data/crowd"
 crowd_catalina: "/opt/atlassian/crowd"
 
 # JVM minimal and maximum memory usage.
-crowd_jvm_minimum_memory: "2048m"
-crowd_jvm_maximum_memory: "2048m"
+crowd_jvm_minimum_memory: "1024m"
+crowd_jvm_maximum_memory: "1024m"
 
 # Proxy and context path setup.
 crowd_catalina_connector_proxyname: ~
@@ -57,8 +57,8 @@ crowd_catalina_context_path: "/"
 crowd_jvm_support_recommended_args: >-
   -Datlassian.plugins.enable.wait=300
   -XX:+UnlockExperimentalVMOptions
-  -XX:+UseContainerSupport
-  -XX:+UseZGC
+  -XX:+UseCGroupMemoryLimitForHeap
+  -XX:MaxRAMFraction=1
 
 # Session timeout.
 crowd_session_timeout: "300"
