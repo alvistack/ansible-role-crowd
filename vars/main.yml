@@ -17,37 +17,37 @@
 _crowd_download:
   "4.2.2":
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.2.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/atlassian-crowd-4.2.2.tar.gz"
-    checksum: "sha1:831a7ca57b856d5c998c55024240baa04716e15b"
+    dest: "/var/cache/ansible/13c584ecbc7b032dbc10d5e13eabe2447ceaf938995d2a7fcacafc4ca0145977/atlassian-crowd-4.2.2.tar.gz"
+    checksum: "sha256:13c584ecbc7b032dbc10d5e13eabe2447ceaf938995d2a7fcacafc4ca0145977"
   "4.2.1":
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.1.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/atlassian-crowd-4.2.1.tar.gz"
-    checksum: "sha1:be27afc01302fa4d01f7fd7ae9f24b2ee46bf943"
+    dest: "/var/cache/ansible/e0337fb49b366a750bc905c539eef698a548f6cab4d7fc12d7d7960584942564/atlassian-crowd-4.2.1.tar.gz"
+    checksum: "sha256:e0337fb49b366a750bc905c539eef698a548f6cab4d7fc12d7d7960584942564"
   "4.2.0":
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.0.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/atlassian-crowd-4.2.0.tar.gz"
-    checksum: "sha1:c51a3362d3feaa3e1dee0455582a4c97b469b0d9"
+    dest: "/var/cache/ansible/52856e831f6a1e6dd0370eab8b36b639df26fe0ebd01238834ea93b93993e4bd/atlassian-crowd-4.2.0.tar.gz"
+    checksum: "sha256:52856e831f6a1e6dd0370eab8b36b639df26fe0ebd01238834ea93b93993e4bd"
   "4.1.6":
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.1.6.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/atlassian-crowd-4.1.6.tar.gz"
-    checksum: "sha1:3b8a2a8deed38d7eb341958fc6dcb4b4b1c859e7"
+    dest: "/var/cache/ansible/a778d2aaa3bd47f90c44c129c2f9c0bb3ec5fab96afce30c820dcf66c86863f7/atlassian-crowd-4.1.6.tar.gz"
+    checksum: "sha256:a778d2aaa3bd47f90c44c129c2f9c0bb3ec5fab96afce30c820dcf66c86863f7"
   "4.1.5":
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.1.5.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/atlassian-crowd-4.1.5.tar.gz"
-    checksum: "sha1:03e8ae8e9d065943aca64262235ed1d56dc2aa3b"
+    dest: "/var/cache/ansible/91db15664b91948165a38180adffd156a51b597953c1bfb72f817fada72dfd08/atlassian-crowd-4.1.5.tar.gz"
+    checksum: "sha256:91db15664b91948165a38180adffd156a51b597953c1bfb72f817fada72dfd08"
   "4.1.3":
     url: "https://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.1.3.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/atlassian-crowd-4.1.3.tar.gz"
-    checksum: "sha1:6290ab8416ab7743c97893d84801e96628e78ae9"
+    dest: "/var/cache/ansible/7dbfa9c642d220f0c390f71f3cf5cbc94828344ae6d24534ab09aad2907056eb/atlassian-crowd-4.1.3.tar.gz"
+    checksum: "sha256:7dbfa9c642d220f0c390f71f3cf5cbc94828344ae6d24534ab09aad2907056eb"
 
 _mysql_jdbc_download:
   "5.1.49":
     url: "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.49.tar.gz"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/mysql-connector-java-5.1.49.tar.gz"
-    checksum: "sha1:ed8f8574585edfb630b0b6ee4ebf6f6847795c0f"
+    dest: "/var/cache/ansible/25dc7e687f58b2345176ecb8aff6ca87acd33bce5b2b3cc92dd0557806d16dca/mysql-connector-java-5.1.49.tar.gz"
+    checksum: "sha256:25dc7e687f58b2345176ecb8aff6ca87acd33bce5b2b3cc92dd0557806d16dca"
 
 _postgresql_jdbc_download:
   "42.2.18":
     url: "https://jdbc.postgresql.org/download/postgresql-42.2.18.jar"
-    dest: "{{ ansible_user_dir }}/.ansible/tmp/postgresql-42.2.18.jar"
-    checksum: "sha1:a0a9c1d43c7727eeaf1b729477891185d3c71751"
+    dest: "/var/cache/ansible/0c891979f1eb2fe44432da114d09760b5063dad9e669ac0ac6b0b6bfb91bb3ba/postgresql-42.2.18.jar"
+    checksum: "sha256:0c891979f1eb2fe44432da114d09760b5063dad9e669ac0ac6b0b6bfb91bb3ba"

@@ -86,6 +86,7 @@
     - dest: "{{ crowd_home }}"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
+  register: file_result
 
 - name: download archive
   vars:
@@ -100,12 +101,14 @@
     - "{{ crowd_download }}"
     - "{{ mysql_jdbc_download }}"
     - "{{ postgresql_jdbc_download }}"
+  when: file_result is changed
   register: get_url_result
   until: get_url_result is succeeded
 
 - name: unarchive package
   shell: |
     set -euo pipefail
+    exec &> >(tee -a {{ crowd_download.dest }}.log)
     rm -rf {{ crowd_catalina }} \
       && mkdir -p {{ crowd_catalina }}
     cd {{ crowd_catalina }}
@@ -129,7 +132,7 @@
       {{ crowd_catalina }}/apache-tomcat/conf
   args:
     executable: "/bin/bash"
-  when: get_url_result is changed
+    creates: "{{ crowd_download.dest }}.log"
   notify:
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
