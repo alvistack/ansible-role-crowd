@@ -17,17 +17,20 @@
                    URIEncoding="UTF-8"
                    compression="on"
                    sendReasonPhrase="true"
-                   proxyName="${catalina.connector.proxyName}"
-                   proxyPort="${catalina.connector.proxyPort}"
                    scheme="${catalina.connector.scheme}"
                    secure="${catalina.connector.secure}"
+                   proxyName="${catalina.connector.proxyName}"
+                   proxyPort="${catalina.connector.proxyPort}"
                    compressableMimeType="text/html,text/xml,application/xml,text/plain,text/css,application/json,application/javascript,application/x-javascript" />
 
         <Engine defaultHost="localhost" name="Catalina">
             <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
                 <Context docBase="../../crowd-webapp" path="${catalina.context.path}">
-                    <Manager pathname=""/>
+                    <Manager pathname="" />
                 </Context>
+                <Valve className="org.apache.catalina.valves.ErrorReportValve"
+                       showReport="true"
+                       showServerInfo="false" />
             </Host>
         </Engine>
 
@@ -42,10 +45,10 @@
     <Listener className="org.apache.catalina.security.SecurityListener" />
     -->
     <!--APR library loader. Documentation at /docs/apr.html -->
-    <Listener SSLEngine="on" className="org.apache.catalina.core.AprLifecycleListener"/>
+    <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
     <!-- Prevent memory leaks due to use of particular java/javax APIs-->
-    <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
-    <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
-    <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener"/>
+    <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+    <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+    <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
 
 </Server>

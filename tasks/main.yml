@@ -218,6 +218,20 @@
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
 
+- name: patch {{ crowd_catalina }}/apache-tomcat/conf/web.xml
+  vars:
+    ansible_python_interpreter: "python3"
+  xml:
+    path: "{{ crowd_catalina }}/apache-tomcat/conf/web.xml"
+    xpath: "/ns:web-app/ns:session-config/ns:session-timeout"
+    namespaces:
+      ns: "http://xmlns.jcp.org/xml/ns/javaee"
+    value: "{{ crowd_session_timeout | int }}"
+    state: "present"
+  notify:
+    - crowd | systemctl daemon-reload
+    - crowd | systemctl restart crowd.service
+
 - name: flush handlers
   meta: flush_handlers
 
