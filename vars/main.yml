@@ -17,8 +17,8 @@
 _crowd_download:
   "4.2.3":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.3.tar.gz"
-    dest: "/var/cache/ansible/8c03cfc0b8ac7d60421d4bec1475436d5ee5d6c0103161ecd46dde30770abf7b/atlassian-crowd-4.2.3.tar.gz"
-    checksum: "sha256:8c03cfc0b8ac7d60421d4bec1475436d5ee5d6c0103161ecd46dde30770abf7b"
+    dest: "/var/cache/ansible/42239e9921775920f0a6482875d79993589247e45977a5d8dff4418cc4efad26/atlassian-crowd-4.2.3.tar.gz"
+    checksum: "sha256:42239e9921775920f0a6482875d79993589247e45977a5d8dff4418cc4efad26"
   "4.2.2":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.2.tar.gz"
     dest: "/var/cache/ansible/13c584ecbc7b032dbc10d5e13eabe2447ceaf938995d2a7fcacafc4ca0145977/atlassian-crowd-4.2.2.tar.gz"
