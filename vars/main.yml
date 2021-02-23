@@ -15,6 +15,10 @@
 # limitations under the License.
 
 _crowd_download:
+  "4.2.3":
+    url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.3.tar.gz"
+    dest: "/var/cache/ansible/8c03cfc0b8ac7d60421d4bec1475436d5ee5d6c0103161ecd46dde30770abf7b/atlassian-crowd-4.2.3.tar.gz"
+    checksum: "sha256:8c03cfc0b8ac7d60421d4bec1475436d5ee5d6c0103161ecd46dde30770abf7b"
   "4.2.2":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.2.tar.gz"
     dest: "/var/cache/ansible/13c584ecbc7b032dbc10d5e13eabe2447ceaf938995d2a7fcacafc4ca0145977/atlassian-crowd-4.2.2.tar.gz"
@@ -23,10 +27,6 @@ _crowd_download:
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.1.tar.gz"
     dest: "/var/cache/ansible/e0337fb49b366a750bc905c539eef698a548f6cab4d7fc12d7d7960584942564/atlassian-crowd-4.2.1.tar.gz"
     checksum: "sha256:e0337fb49b366a750bc905c539eef698a548f6cab4d7fc12d7d7960584942564"
-  "4.2.0":
-    url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.0.tar.gz"
-    dest: "/var/cache/ansible/52856e831f6a1e6dd0370eab8b36b639df26fe0ebd01238834ea93b93993e4bd/atlassian-crowd-4.2.0.tar.gz"
-    checksum: "sha256:52856e831f6a1e6dd0370eab8b36b639df26fe0ebd01238834ea93b93993e4bd"
   "4.1.6":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.1.6.tar.gz"
     dest: "/var/cache/ansible/a778d2aaa3bd47f90c44c129c2f9c0bb3ec5fab96afce30c820dcf66c86863f7/atlassian-crowd-4.1.6.tar.gz"
