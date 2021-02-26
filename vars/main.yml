@@ -15,6 +15,10 @@
 # limitations under the License.
 
 _crowd_download:
+  "4.2.3":
+    url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.3.tar.gz"
+    dest: "/var/cache/ansible/42239e9921775920f0a6482875d79993589247e45977a5d8dff4418cc4efad26/atlassian-crowd-4.2.3.tar.gz"
+    checksum: "sha256:42239e9921775920f0a6482875d79993589247e45977a5d8dff4418cc4efad26"
   "4.2.2":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.2.tar.gz"
     dest: "/var/cache/ansible/13c584ecbc7b032dbc10d5e13eabe2447ceaf938995d2a7fcacafc4ca0145977/atlassian-crowd-4.2.2.tar.gz"
@@ -23,10 +27,6 @@ _crowd_download:
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.1.tar.gz"
     dest: "/var/cache/ansible/e0337fb49b366a750bc905c539eef698a548f6cab4d7fc12d7d7960584942564/atlassian-crowd-4.2.1.tar.gz"
     checksum: "sha256:e0337fb49b366a750bc905c539eef698a548f6cab4d7fc12d7d7960584942564"
-  "4.2.0":
-    url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.0.tar.gz"
-    dest: "/var/cache/ansible/52856e831f6a1e6dd0370eab8b36b639df26fe0ebd01238834ea93b93993e4bd/atlassian-crowd-4.2.0.tar.gz"
-    checksum: "sha256:52856e831f6a1e6dd0370eab8b36b639df26fe0ebd01238834ea93b93993e4bd"
   "4.1.6":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.1.6.tar.gz"
     dest: "/var/cache/ansible/a778d2aaa3bd47f90c44c129c2f9c0bb3ec5fab96afce30c820dcf66c86863f7/atlassian-crowd-4.1.6.tar.gz"
@@ -47,7 +47,7 @@ _mysql_jdbc_download:
     checksum: "sha256:25dc7e687f58b2345176ecb8aff6ca87acd33bce5b2b3cc92dd0557806d16dca"
 
 _postgresql_jdbc_download:
-  "42.2.18":
-    url: "http://jdbc.postgresql.org/download/postgresql-42.2.18.jar"
-    dest: "/var/cache/ansible/0c891979f1eb2fe44432da114d09760b5063dad9e669ac0ac6b0b6bfb91bb3ba/postgresql-42.2.18.jar"
-    checksum: "sha256:0c891979f1eb2fe44432da114d09760b5063dad9e669ac0ac6b0b6bfb91bb3ba"
+  "42.2.19":
+    url: "http://jdbc.postgresql.org/download/postgresql-42.2.19.jar"
+    dest: "/var/cache/ansible/232747fa0924d88a26dfa42b8128b6fa1140802d804125891596e8ca5f291322/postgresql-42.2.19.jar"
+    checksum: "sha256:232747fa0924d88a26dfa42b8128b6fa1140802d804125891596e8ca5f291322"
