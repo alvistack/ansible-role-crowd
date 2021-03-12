@@ -86,24 +86,11 @@
     - dest: "{{ crowd_home }}"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
-  register: file_result
+  notify:
+    - crowd | download archive
 
-- name: download archive
-  vars:
-    ansible_python_interpreter: "python3"
-  get_url:
-    url: "{{ item.url }}"
-    dest: "{{ item.dest }}"
-    checksum: "{{ item.checksum }}"
-    mode: "{{ item.mode | default('0644') }}"
-    timeout: 300
-  loop:
-    - "{{ crowd_download }}"
-    - "{{ mysql_jdbc_download }}"
-    - "{{ postgresql_jdbc_download }}"
-  when: file_result is changed
-  register: result
-  until: result is succeeded
+- name: flush handlers
+  meta: flush_handlers
 
 - name: unarchive package
   shell: |
@@ -146,24 +133,8 @@
     mode: "0644"
     no_extra_spaces: true
     state: "present"
-  register: ini_file_result
   notify:
-    - crowd | systemctl daemon-reload
-    - crowd | systemctl restart crowd.service
-
-- name: update build with ant
-  shell: |
-    set -euo pipefail
-    cd {{ crowd_catalina }}
-    ./build.sh
-    rm -rf apache-tomcat/conf/Catalina/localhost
-    chown -Rf crowd:crowd {{ crowd_catalina }}
-  args:
-    executable: "/bin/bash"
-  when: ini_file_result is changed
-  register: result
-  changed_when: result is not succeeded
-  notify:
+    - crowd | update build with ant
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
 
