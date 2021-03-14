@@ -71,9 +71,6 @@
   loop:
     - { dest: "/lib/systemd/system" }
     - { dest: "/lib/systemd/system/crowd.service.d" }
-    - { dest: "{{ crowd_download.dest | dirname }}" }
-    - { dest: "{{ mysql_jdbc_download.dest | dirname }}" }
-    - { dest: "{{ postgresql_jdbc_download.dest | dirname }}" }
     - dest: "{{ crowd_catalina }}"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
@@ -86,11 +83,27 @@
     - dest: "{{ crowd_home }}"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
-  notify:
-    - crowd | download archive
 
-- name: flush handlers
-  meta: flush_handlers
+- name: download archive
+  shell: |
+    set -euo pipefail
+    TMP_DIR="$(mktemp -d)" \
+      && cd $TMP_DIR \
+      && mkdir -p ./{{ item.dest | dirname }} \
+      && curl -skL -m 300 {{ item.url }} > ./{{ item.dest }} \
+      && echo -n "{{ item.sha256sum }} ./{{ item.dest }}" | sha256sum -c - \
+      && mkdir -p {{ item.dest | dirname }} \
+      && mv ./{{ item.dest }} {{ item.dest }} \
+      && rm -rf $TMP_DIR
+  args:
+    executable: "/bin/bash"
+    creates: "{{ item.dest | dirname }}"
+  loop:
+    - "{{ crowd_download }}"
+    - "{{ mysql_jdbc_download }}"
+    - "{{ postgresql_jdbc_download }}"
+  register: result
+  until: result is succeeded
 
 - name: unarchive package
   shell: |
@@ -134,9 +147,20 @@
     no_extra_spaces: true
     state: "present"
   notify:
-    - crowd | update build with ant
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
+
+- name: update build with ant
+  shell: |
+    set -euo pipefail
+    cd {{ crowd_catalina }}
+    ./build.sh
+    rm -rf apache-tomcat/conf/Catalina/localhost
+    chown -Rf crowd:crowd {{ crowd_catalina }}
+  args:
+    executable: "/bin/bash"
+  register: result
+  changed_when: result is not succeeded
 
 - name: copy templates
   template:
