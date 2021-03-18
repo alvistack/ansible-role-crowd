@@ -14,6 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+- name: crowd | update build with ant
+  shell: |
+    set -euo pipefail
+    cd {{ crowd_catalina }}
+    ./build.sh
+    rm -rf apache-tomcat/conf/Catalina/localhost
+    chown -Rf crowd:crowd {{ crowd_catalina }}
+  args:
+    executable: "/bin/bash"
+  register: result
+  changed_when: result is not succeeded
+
 - name: crowd | systemctl daemon-reload
   systemd:
     daemon_reload: true

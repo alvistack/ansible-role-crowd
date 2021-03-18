@@ -147,20 +147,12 @@
     no_extra_spaces: true
     state: "present"
   notify:
+    - crowd | update build with ant
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
 
-- name: update build with ant
-  shell: |
-    set -euo pipefail
-    cd {{ crowd_catalina }}
-    ./build.sh
-    rm -rf apache-tomcat/conf/Catalina/localhost
-    chown -Rf crowd:crowd {{ crowd_catalina }}
-  args:
-    executable: "/bin/bash"
-  register: result
-  changed_when: result is not succeeded
+- name: flush handlers
+  meta: flush_handlers
 
 - name: copy templates
   template:
