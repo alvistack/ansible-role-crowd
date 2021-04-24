@@ -15,6 +15,10 @@
 # limitations under the License.
 
 _crowd_download:
+  "4.3.0":
+    url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.3.0.tar.gz"
+    dest: "/var/cache/ansible/f3c07ab54fb00fb13b9902a05971402aa8d85721fe0366c14302252d811cdeea/atlassian-crowd-4.3.0.tar.gz"
+    sha256sum: "f3c07ab54fb00fb13b9902a05971402aa8d85721fe0366c14302252d811cdeea"
   "4.2.3":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.3.tar.gz"
     dest: "/var/cache/ansible/42239e9921775920f0a6482875d79993589247e45977a5d8dff4418cc4efad26/atlassian-crowd-4.2.3.tar.gz"
@@ -27,27 +31,9 @@ _crowd_download:
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.1.tar.gz"
     dest: "/var/cache/ansible/e0337fb49b366a750bc905c539eef698a548f6cab4d7fc12d7d7960584942564/atlassian-crowd-4.2.1.tar.gz"
     sha256sum: "e0337fb49b366a750bc905c539eef698a548f6cab4d7fc12d7d7960584942564"
-  "4.1.6":
-    url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.1.6.tar.gz"
-    dest: "/var/cache/ansible/a778d2aaa3bd47f90c44c129c2f9c0bb3ec5fab96afce30c820dcf66c86863f7/atlassian-crowd-4.1.6.tar.gz"
-    sha256sum: "a778d2aaa3bd47f90c44c129c2f9c0bb3ec5fab96afce30c820dcf66c86863f7"
-  "4.1.5":
-    url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.1.5.tar.gz"
-    dest: "/var/cache/ansible/91db15664b91948165a38180adffd156a51b597953c1bfb72f817fada72dfd08/atlassian-crowd-4.1.5.tar.gz"
-    sha256sum: "91db15664b91948165a38180adffd156a51b597953c1bfb72f817fada72dfd08"
-  "4.1.3":
-    url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.1.3.tar.gz"
-    dest: "/var/cache/ansible/7dbfa9c642d220f0c390f71f3cf5cbc94828344ae6d24534ab09aad2907056eb/atlassian-crowd-4.1.3.tar.gz"
-    sha256sum: "7dbfa9c642d220f0c390f71f3cf5cbc94828344ae6d24534ab09aad2907056eb"
-
-_mysql_jdbc_download:
-  "5.1.49":
-    url: "http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.49.tar.gz"
-    dest: "/var/cache/ansible/25dc7e687f58b2345176ecb8aff6ca87acd33bce5b2b3cc92dd0557806d16dca/mysql-connector-java-5.1.49.tar.gz"
-    sha256sum: "25dc7e687f58b2345176ecb8aff6ca87acd33bce5b2b3cc92dd0557806d16dca"
 
 _postgresql_jdbc_download:
-  "42.2.19":
-    url: "http://jdbc.postgresql.org/download/postgresql-42.2.19.jar"
-    dest: "/var/cache/ansible/232747fa0924d88a26dfa42b8128b6fa1140802d804125891596e8ca5f291322/postgresql-42.2.19.jar"
-    sha256sum: "232747fa0924d88a26dfa42b8128b6fa1140802d804125891596e8ca5f291322"
+  "42.2.20":
+    url: "http://jdbc.postgresql.org/download/postgresql-42.2.20.jar"
+    dest: "/var/cache/ansible/708b2938aea81f32b8b35440da233828284a100e6f2212a7ab1eeaf4b3a6514e/postgresql-42.2.20.jar"
+    sha256sum: "708b2938aea81f32b8b35440da233828284a100e6f2212a7ab1eeaf4b3a6514e"

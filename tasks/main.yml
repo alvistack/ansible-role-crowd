@@ -100,7 +100,6 @@
     creates: "{{ item.dest | dirname }}"
   loop:
     - "{{ crowd_download }}"
-    - "{{ mysql_jdbc_download }}"
     - "{{ postgresql_jdbc_download }}"
   register: result
   until: result is succeeded
@@ -115,12 +114,6 @@
     TMP_DIR="$(mktemp -d)" \
       && tar -zx -C $TMP_DIR -f {{ crowd_download.dest }} \
       && cp -rfT $TMP_DIR/* . \
-      && rm -rf $TMP_DIR
-    cd {{ crowd_catalina }}/apache-tomcat/lib
-    rm -rf *mysql*.jar
-    TMP_DIR="$(mktemp -d)" \
-      && tar -zx -C $TMP_DIR -f {{ mysql_jdbc_download.dest }} \
-      && mv $TMP_DIR/*/*mysql*-bin.jar . \
       && rm -rf $TMP_DIR
     cd {{ crowd_catalina }}/apache-tomcat/lib
     rm -rf *postgresql*.jar
@@ -216,7 +209,6 @@
     value: "{{ crowd_session_timeout | int }}"
     state: "present"
   notify:
-    - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
 
 - name: flush handlers
