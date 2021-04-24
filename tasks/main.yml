@@ -209,7 +209,6 @@
     value: "{{ crowd_session_timeout | int }}"
     state: "present"
   notify:
-    - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
 
 - name: flush handlers
