@@ -75,8 +75,9 @@
     mode: "{{ item.mode | default('0755') }}"
     state: "{{ item.state | default('directory') }}"
   loop:
-    - { dest: "/lib/systemd/system" }
-    - { dest: "/lib/systemd/system/crowd.service.d" }
+    - { dest: "/lib/systemd/system/crowd.service.d", state: "absent" }
+    - { dest: "/usr/local/lib/systemd/system" }
+    - { dest: "/usr/local/lib/systemd/system/crowd.service.d" }
     - dest: "{{ crowd_catalina }}"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
@@ -161,7 +162,7 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   loop:
-    - { dest: "/lib/systemd/system/crowd.service" }
+    - { dest: "/usr/local/lib/systemd/system/crowd.service" }
     - dest: "{{ crowd_catalina }}/apache-tomcat/bin/setenv.sh"
       src: "./templates/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh.j2"
       owner: "{{ crowd_owner }}"
@@ -188,7 +189,8 @@
     mode: "{{ item.mode | default('0644') }}"
     state: "{{ item.state | default('file') }}"
   loop:
-    - { dest: "/lib/systemd/system/crowd.service" }
+    - { dest: "/lib/systemd/system/crowd.service", state: "absent" }
+    - { dest: "/usr/local/lib/systemd/system/crowd.service" }
     - dest: "{{ crowd_catalina }}/apache-tomcat/bin/setenv.sh"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
