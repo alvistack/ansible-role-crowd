@@ -14,6 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+_crowd_version:
+  "4.3": "4.3.0"
+  "4.2": "4.2.3"
+
 _crowd_download:
   "4.3.0":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.3.0.tar.gz"

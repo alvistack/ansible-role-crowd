@@ -76,7 +76,6 @@
     state: "{{ item.state | default('directory') }}"
   loop:
     - { dest: "/lib/systemd/system" }
-    - { dest: "/lib/systemd/system/crowd.service.d" }
     - dest: "{{ crowd_catalina }}"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"

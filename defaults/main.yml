@@ -14,8 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Crowd release.
+crowd_release: "4.3"
+
 # Crowd version.
-crowd_version: "4.3.0"
+crowd_version: "{{ _crowd_version[crowd_release] }}"
 
 # Crowd download details.
 crowd_download: "{{ _crowd_download[crowd_version] }}"
