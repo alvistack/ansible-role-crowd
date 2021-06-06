@@ -16,7 +16,7 @@
 
 - name: crowd | update build with ant
   shell: |
-    set -euo pipefail
+    set -euxo pipefail
     cd {{ crowd_catalina }}
     ./build.sh
     rm -rf apache-tomcat/conf/Catalina/localhost
