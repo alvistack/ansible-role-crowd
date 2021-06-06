@@ -14,6 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+_postgresql_jdbc_version:
+  "42.2": "42.2.20"
+
+_postgresql_jdbc_download:
+  "42.2.20":
+    url: "http://jdbc.postgresql.org/download/postgresql-42.2.20.jar"
+    dest: "/tmp/708b2938aea81f32b8b35440da233828284a100e6f2212a7ab1eeaf4b3a6514e/postgresql-42.2.20.jar"
+    checksum: "708b2938aea81f32b8b35440da233828284a100e6f2212a7ab1eeaf4b3a6514e"
+
 _crowd_version:
   "4.3": "4.3.0"
   "4.2": "4.2.3"
@@ -21,23 +30,17 @@ _crowd_version:
 _crowd_download:
   "4.3.0":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.3.0.tar.gz"
-    dest: "/var/cache/ansible/f3c07ab54fb00fb13b9902a05971402aa8d85721fe0366c14302252d811cdeea/atlassian-crowd-4.3.0.tar.gz"
-    sha256sum: "f3c07ab54fb00fb13b9902a05971402aa8d85721fe0366c14302252d811cdeea"
+    dest: "/tmp/f3c07ab54fb00fb13b9902a05971402aa8d85721fe0366c14302252d811cdeea/atlassian-crowd-4.3.0.tar.gz"
+    checksum: "f3c07ab54fb00fb13b9902a05971402aa8d85721fe0366c14302252d811cdeea"
   "4.2.3":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.3.tar.gz"
-    dest: "/var/cache/ansible/42239e9921775920f0a6482875d79993589247e45977a5d8dff4418cc4efad26/atlassian-crowd-4.2.3.tar.gz"
-    sha256sum: "42239e9921775920f0a6482875d79993589247e45977a5d8dff4418cc4efad26"
+    dest: "/tmp/42239e9921775920f0a6482875d79993589247e45977a5d8dff4418cc4efad26/atlassian-crowd-4.2.3.tar.gz"
+    checksum: "42239e9921775920f0a6482875d79993589247e45977a5d8dff4418cc4efad26"
   "4.2.2":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.2.tar.gz"
-    dest: "/var/cache/ansible/13c584ecbc7b032dbc10d5e13eabe2447ceaf938995d2a7fcacafc4ca0145977/atlassian-crowd-4.2.2.tar.gz"
-    sha256sum: "13c584ecbc7b032dbc10d5e13eabe2447ceaf938995d2a7fcacafc4ca0145977"
+    dest: "/tmp/13c584ecbc7b032dbc10d5e13eabe2447ceaf938995d2a7fcacafc4ca0145977/atlassian-crowd-4.2.2.tar.gz"
+    checksum: "13c584ecbc7b032dbc10d5e13eabe2447ceaf938995d2a7fcacafc4ca0145977"
   "4.2.1":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.1.tar.gz"
-    dest: "/var/cache/ansible/e0337fb49b366a750bc905c539eef698a548f6cab4d7fc12d7d7960584942564/atlassian-crowd-4.2.1.tar.gz"
-    sha256sum: "e0337fb49b366a750bc905c539eef698a548f6cab4d7fc12d7d7960584942564"
-
-_postgresql_jdbc_download:
-  "42.2.20":
-    url: "http://jdbc.postgresql.org/download/postgresql-42.2.20.jar"
-    dest: "/var/cache/ansible/708b2938aea81f32b8b35440da233828284a100e6f2212a7ab1eeaf4b3a6514e/postgresql-42.2.20.jar"
-    sha256sum: "708b2938aea81f32b8b35440da233828284a100e6f2212a7ab1eeaf4b3a6514e"
+    dest: "/tmp/e0337fb49b366a750bc905c539eef698a548f6cab4d7fc12d7d7960584942564/atlassian-crowd-4.2.1.tar.gz"
+    checksum: "e0337fb49b366a750bc905c539eef698a548f6cab4d7fc12d7d7960584942564"
