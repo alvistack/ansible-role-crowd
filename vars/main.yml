@@ -24,10 +24,14 @@ _postgresql_jdbc_download:
     checksum: "216127fc396598edac446d0e102ac662984b91d77c820916e9189b5fc4074909"
 
 _crowd_version:
-  "4.3": "4.3.0"
+  "4.3": "4.3.5"
   "4.2": "4.2.3"
 
 _crowd_download:
+  "4.3.5":
+    url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.3.5.tar.gz"
+    dest: "/var/cache/ansible/8d8b6bf47bcbf25e911fe5d2ef0d44e71c94adaa631dbe384d02ea265bf3b7b9/atlassian-crowd-4.3.5.tar.gz"
+    checksum: "8d8b6bf47bcbf25e911fe5d2ef0d44e71c94adaa631dbe384d02ea265bf3b7b9"
   "4.3.0":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.3.0.tar.gz"
     dest: "/var/cache/ansible/f3c07ab54fb00fb13b9902a05971402aa8d85721fe0366c14302252d811cdeea/atlassian-crowd-4.3.0.tar.gz"
