@@ -15,19 +15,23 @@
 # limitations under the License.
 
 _postgresql_jdbc_version:
-  "42.2": "42.2.22"
+  "42.2": "42.2.23"
 
 _postgresql_jdbc_download:
-  "42.2.22":
-    url: "http://jdbc.postgresql.org/download/postgresql-42.2.22.jar"
-    dest: "/var/cache/ansible/216127fc396598edac446d0e102ac662984b91d77c820916e9189b5fc4074909/postgresql-42.2.22.jar"
-    checksum: "216127fc396598edac446d0e102ac662984b91d77c820916e9189b5fc4074909"
+  "42.2.23":
+    url: "http://jdbc.postgresql.org/download/postgresql-42.2.23.jar"
+    dest: "/var/cache/ansible/7a16267953ae981734febd0200cd86261ebb950a6a6a819467b8816b9bfcf6c7/postgresql-42.2.23.jar"
+    checksum: "7a16267953ae981734febd0200cd86261ebb950a6a6a819467b8816b9bfcf6c7"
 
 _crowd_version:
-  "4.3": "4.3.0"
+  "4.3": "4.3.5"
   "4.2": "4.2.3"
 
 _crowd_download:
+  "4.3.5":
+    url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.3.5.tar.gz"
+    dest: "/var/cache/ansible/8d8b6bf47bcbf25e911fe5d2ef0d44e71c94adaa631dbe384d02ea265bf3b7b9/atlassian-crowd-4.3.5.tar.gz"
+    checksum: "8d8b6bf47bcbf25e911fe5d2ef0d44e71c94adaa631dbe384d02ea265bf3b7b9"
   "4.3.0":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.3.0.tar.gz"
     dest: "/var/cache/ansible/f3c07ab54fb00fb13b9902a05971402aa8d85721fe0366c14302252d811cdeea/atlassian-crowd-4.3.0.tar.gz"
