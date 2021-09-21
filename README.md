@@ -1,5 +1,7 @@
 # Ansible Role for Crowd
 
+<img src="/alvistack.svg" width="75" alt="AlviStack">
+
 [![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/alvistack/ansible-role-crowd/master)](https://gitlab.com/alvistack/ansible-role-crowd/-/pipelines)
 [![GitHub release](https://img.shields.io/github/release/alvistack/ansible-role-crowd.svg)](https://github.com/alvistack/ansible-role-crowd/releases)
 [![GitHub license](https://img.shields.io/github/license/alvistack/ansible-role-crowd.svg)](https://github.com/alvistack/ansible-role-crowd/blob/master/LICENSE)
