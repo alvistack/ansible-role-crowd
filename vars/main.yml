@@ -15,19 +15,23 @@
 # limitations under the License.
 
 _postgresql_jdbc_version:
-  "42.2": "42.2.24"
+  "42.2": "42.3.0"
 
 _postgresql_jdbc_download:
-  "42.2.24":
-    url: "http://jdbc.postgresql.org/download/postgresql-42.2.24.jar"
-    dest: "/var/cache/ansible/83ff945bb4f5dac8ea31b7bd5324433f5593dbbcb58b63763232bbef186d4772/postgresql-42.2.24.jar"
-    checksum: "83ff945bb4f5dac8ea31b7bd5324433f5593dbbcb58b63763232bbef186d4772"
+  "42.3.0":
+    url: "http://jdbc.postgresql.org/download/postgresql-42.3.0.jar"
+    dest: "/var/cache/ansible/bd3b88a62d92f36b26c254203460d5f0463da15c0e964a0c7197c83f3c689ccd/postgresql-42.3.0.jar"
+    checksum: "bd3b88a62d92f36b26c254203460d5f0463da15c0e964a0c7197c83f3c689ccd"
 
 _crowd_version:
+  "4.4": "4.4.0"
   "4.3": "4.3.5"
-  "4.2": "4.2.3"
 
 _crowd_download:
+  "4.4.0":
+    url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.4.0.tar.gz"
+    dest: "/var/cache/ansible/21f58135d39ac6621eab24300fcb677eac49939714c69acff0026ca465dbee46/atlassian-crowd-4.4.0.tar.gz"
+    checksum: "21f58135d39ac6621eab24300fcb677eac49939714c69acff0026ca465dbee46"
   "4.3.5":
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.3.5.tar.gz"
     dest: "/var/cache/ansible/8d8b6bf47bcbf25e911fe5d2ef0d44e71c94adaa631dbe384d02ea265bf3b7b9/atlassian-crowd-4.3.5.tar.gz"
@@ -36,15 +40,3 @@ _crowd_download:
     url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.3.0.tar.gz"
     dest: "/var/cache/ansible/f3c07ab54fb00fb13b9902a05971402aa8d85721fe0366c14302252d811cdeea/atlassian-crowd-4.3.0.tar.gz"
     checksum: "f3c07ab54fb00fb13b9902a05971402aa8d85721fe0366c14302252d811cdeea"
-  "4.2.3":
-    url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.3.tar.gz"
-    dest: "/var/cache/ansible/42239e9921775920f0a6482875d79993589247e45977a5d8dff4418cc4efad26/atlassian-crowd-4.2.3.tar.gz"
-    checksum: "42239e9921775920f0a6482875d79993589247e45977a5d8dff4418cc4efad26"
-  "4.2.2":
-    url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.2.tar.gz"
-    dest: "/var/cache/ansible/13c584ecbc7b032dbc10d5e13eabe2447ceaf938995d2a7fcacafc4ca0145977/atlassian-crowd-4.2.2.tar.gz"
-    checksum: "13c584ecbc7b032dbc10d5e13eabe2447ceaf938995d2a7fcacafc4ca0145977"
-  "4.2.1":
-    url: "http://product-downloads.atlassian.com/software/crowd/downloads/atlassian-crowd-4.2.1.tar.gz"
-    dest: "/var/cache/ansible/e0337fb49b366a750bc905c539eef698a548f6cab4d7fc12d7d7960584942564/atlassian-crowd-4.2.1.tar.gz"
-    checksum: "e0337fb49b366a750bc905c539eef698a548f6cab4d7fc12d7d7960584942564"

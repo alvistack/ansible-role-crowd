@@ -15,7 +15,7 @@
 # limitations under the License.
 
 # PostgreSQL JDBC release.
-postgresql_jdbc_release: "42.2"
+postgresql_jdbc_release: "42.3"
 
 # PostgreSQL JDBC version.
 postgresql_jdbc_version: "{{ _postgresql_jdbc_version[postgresql_jdbc_release] }}"
@@ -24,7 +24,7 @@ postgresql_jdbc_version: "{{ _postgresql_jdbc_version[postgresql_jdbc_release] }
 postgresql_jdbc_download: "{{ _postgresql_jdbc_download[postgresql_jdbc_version] }}"
 
 # Crowd release.
-crowd_release: "4.3"
+crowd_release: "4.4"
 
 # Crowd version.
 crowd_version: "{{ _crowd_version[crowd_release] }}"
