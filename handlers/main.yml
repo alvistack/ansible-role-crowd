@@ -15,7 +15,7 @@
 # limitations under the License.
 
 - name: crowd | update build with ant
-  shell: |
+  ansible.builtin.shell: |
     set -euxo pipefail
     cd {{ crowd_catalina }}
     ./build.sh
@@ -27,13 +27,13 @@
   changed_when: result is not succeeded
 
 - name: crowd | systemctl daemon-reload
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
   changed_when: false
   failed_when: false
 
 - name: crowd | systemctl restart crowd.service
-  service:
+  ansible.builtin.service:
     name: "crowd.service"
     state: "restarted"
     enabled: true
