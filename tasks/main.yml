@@ -15,10 +15,10 @@
 # limitations under the License.
 
 - name: include default variables
-  include_vars: "../vars/main.yml"
+  ansible.builtin.include_vars: "../vars/main.yml"
 
 - name: include release specific variables
-  include_vars: "{{ _loop_var }}"
+  ansible.builtin.include_vars: "{{ _loop_var }}"
   loop: "{{ query('first_found', _params) }}"
   loop_control:
     loop_var: _loop_var
@@ -54,45 +54,45 @@
       skip: true
 
 - name: groupadd
-  group:
+  ansible.builtin.group:
     name: "{{ crowd_group }}"
     system: true
     state: "present"
 
 - name: useradd
-  user:
+  ansible.builtin.user:
     name: "{{ crowd_owner }}"
-    group: "{{ crowd_group }}"
+    ansible.builtin.group: "{{ crowd_group }}"
     home: "{{ crowd_home }}"
-    shell: "/usr/sbin/nologin"
+    ansible.builtin.shell: "/usr/sbin/nologin"
     system: true
     create_home: false
     state: "present"
 
 - name: prepare directories
-  file:
+  ansible.builtin.file:
     dest: "{{ item.dest }}"
     owner: "{{ item.owner | default('root') }}"
-    group: "{{ item.group | default('root') }}"
+    ansible.builtin.group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0755') }}"
     state: "{{ item.state | default('directory') }}"
   loop:
     - { dest: "/etc/systemd/system" }
     - dest: "{{ crowd_catalina }}"
       owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
+      ansible.builtin.group: "{{ crowd_group }}"
     - dest: "{{ crowd_catalina }}/apache-tomcat/bin"
       owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
+      ansible.builtin.group: "{{ crowd_group }}"
     - dest: "{{ crowd_catalina }}/apache-tomcat/conf"
       owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
+      ansible.builtin.group: "{{ crowd_group }}"
     - dest: "{{ crowd_home }}"
       owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
+      ansible.builtin.group: "{{ crowd_group }}"
 
 - name: download archive
-  shell: |
+  ansible.builtin.shell: |
     set -euxo pipefail
     mkdir -p /var/log/ansible
     exec &> >(tee -a /var/log/ansible/{{ item.checksum }}-get_url.log)
@@ -114,7 +114,7 @@
   until: result is succeeded
 
 - name: unarchive package
-  shell: |
+  ansible.builtin.shell: |
     set -euxo pipefail
     mkdir -p /var/log/ansible
     exec &> >(tee -a /var/log/ansible/{{ crowd_download.checksum }}-unarchive.log)
@@ -155,54 +155,54 @@
     - crowd | systemctl restart crowd.service
 
 - name: flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: copy templates
-  template:
+  ansible.builtin.template:
     dest: "{{ item.dest }}"
     src: "{{ item.src | default('./templates' + item.dest + '.j2') }}"
     owner: "{{ item.owner | default('root') }}"
-    group: "{{ item.group | default('root') }}"
+    ansible.builtin.group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   loop:
     - { dest: "/etc/systemd/system/crowd.service" }
     - dest: "{{ crowd_catalina }}/apache-tomcat/bin/setenv.sh"
       src: "./templates/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh.j2"
       owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
+      ansible.builtin.group: "{{ crowd_group }}"
       mode: "0755"
     - dest: "{{ crowd_catalina }}/apache-tomcat/conf/server.xml"
       src: "./templates/opt/atlassian/crowd/apache-tomcat/conf/server.xml.j2"
       owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
+      ansible.builtin.group: "{{ crowd_group }}"
     - dest: "{{ crowd_catalina }}/start_crowd.sh"
       src: "./templates/opt/atlassian/crowd/start_crowd.sh.j2"
       owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
+      ansible.builtin.group: "{{ crowd_group }}"
       mode: "0755"
   notify:
     - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
 
 - name: prepare files
-  file:
+  ansible.builtin.file:
     dest: "{{ item.dest }}"
     owner: "{{ item.owner | default('root') }}"
-    group: "{{ item.group | default('root') }}"
+    ansible.builtin.group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
     state: "{{ item.state | default('file') }}"
   loop:
     - { dest: "/etc/systemd/system/crowd.service" }
     - dest: "{{ crowd_catalina }}/apache-tomcat/bin/setenv.sh"
       owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
+      ansible.builtin.group: "{{ crowd_group }}"
       mode: "0755"
     - dest: "{{ crowd_catalina }}/apache-tomcat/conf/server.xml"
       owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
+      ansible.builtin.group: "{{ crowd_group }}"
     - dest: "{{ crowd_catalina }}/start_crowd.sh"
       owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
+      ansible.builtin.group: "{{ crowd_group }}"
       mode: "0755"
   notify:
     - crowd | systemctl daemon-reload
@@ -222,10 +222,10 @@
     - crowd | systemctl restart crowd.service
 
 - name: flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: systemctl start crowd.service
-  service:
+  ansible.builtin.service:
     name: "crowd.service"
     state: "started"
     enabled: true
