@@ -14,23 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# PostgreSQL JDBC release.
-postgresql_jdbc_release: "42.4"
-
-# PostgreSQL JDBC version.
-postgresql_jdbc_version: "{{ _postgresql_jdbc_version[postgresql_jdbc_release] }}"
-
-# PostgreSQL JDBC download details.
-postgresql_jdbc_download: "{{ _postgresql_jdbc_download[postgresql_jdbc_version] }}"
-
 # Crowd release.
 crowd_release: "5.0"
 
 # Crowd version.
 crowd_version: "{{ _crowd_version[crowd_release] }}"
-
-# Crowd download details.
-crowd_download: "{{ _crowd_download[crowd_version] }}"
 
 # Owner and group for Crowd.
 crowd_owner: "crowd"

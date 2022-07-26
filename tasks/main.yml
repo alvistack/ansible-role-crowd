@@ -69,77 +69,6 @@
     create_home: false
     state: "present"
 
-- name: prepare directories
-  ansible.builtin.file:
-    dest: "{{ item.dest }}"
-    owner: "{{ item.owner | default('root') }}"
-    group: "{{ item.group | default('root') }}"
-    mode: "{{ item.mode | default('0755') }}"
-    state: "{{ item.state | default('directory') }}"
-  loop:
-    - { dest: "/etc/systemd/system" }
-    - dest: "{{ crowd_catalina }}"
-      owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
-    - dest: "{{ crowd_catalina }}/apache-tomcat/bin"
-      owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
-    - dest: "{{ crowd_catalina }}/apache-tomcat/conf"
-      owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
-    - dest: "{{ crowd_home }}"
-      owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
-
-- name: download archive
-  ansible.builtin.shell: |
-    set -euxo pipefail
-    mkdir -p /var/log/ansible
-    exec &> >(tee -a /var/log/ansible/{{ item.checksum }}-get_url.log)
-    TMP_DIR="$(mktemp -d)" \
-      && cd $TMP_DIR \
-      && mkdir -p .{{ item.dest | dirname }} \
-      && curl -skL -m 300 {{ item.url }} > .{{ item.dest }} \
-      && echo -n "{{ item.checksum }} .{{ item.dest }}" | sha256sum -c - \
-      && mkdir -p {{ item.dest | dirname }} \
-      && mv .{{ item.dest }} {{ item.dest }} \
-      && rm -rf $TMP_DIR
-  args:
-    executable: "/bin/bash"
-    creates: "/var/log/ansible/{{ item.checksum }}-get_url.log"
-  loop:
-    - "{{ crowd_download }}"
-    - "{{ postgresql_jdbc_download }}"
-  register: result
-  until: result is succeeded
-
-- name: unarchive package
-  ansible.builtin.shell: |
-    set -euxo pipefail
-    mkdir -p /var/log/ansible
-    exec &> >(tee -a /var/log/ansible/{{ crowd_download.checksum }}-unarchive.log)
-    rm -rf {{ crowd_catalina }} \
-      && mkdir -p {{ crowd_catalina }}
-    cd {{ crowd_catalina }}
-    TMP_DIR="$(mktemp -d)" \
-      && tar -zx -C $TMP_DIR -f {{ crowd_download.dest }} \
-      && cp -rfT $TMP_DIR/* . \
-      && rm -rf $TMP_DIR
-    cd {{ crowd_catalina }}/apache-tomcat/lib
-    rm -rf *postgresql*.jar
-    cp {{ postgresql_jdbc_download.dest }} .
-    chown -Rf {{ crowd_owner }}:{{ crowd_group }} {{ crowd_catalina }}
-    chmod 0755 \
-      {{ crowd_catalina }} \
-      {{ crowd_catalina }}/apache-tomcat/bin \
-      {{ crowd_catalina }}/apache-tomcat/conf
-  args:
-    executable: "/bin/bash"
-    creates: "/var/log/ansible/{{ crowd_download.checksum }}-unarchive.log"
-  notify:
-    - crowd | systemctl daemon-reload
-    - crowd | systemctl restart crowd.service
-
 - name: patch {{ crowd_catalina }}/build.properties
   ini_file:
     path: "{{ crowd_catalina }}/build.properties"
@@ -151,7 +80,6 @@
     state: "present"
   notify:
     - crowd | update build with ant
-    - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
 
 - name: flush handlers
@@ -165,7 +93,6 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   loop:
-    - { dest: "/etc/systemd/system/crowd.service" }
     - dest: "{{ crowd_catalina }}/apache-tomcat/bin/setenv.sh"
       src: "./templates/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh.j2"
       owner: "{{ crowd_owner }}"
@@ -175,13 +102,7 @@
       src: "./templates/opt/atlassian/crowd/apache-tomcat/conf/server.xml.j2"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
-    - dest: "{{ crowd_catalina }}/start_crowd.sh"
-      src: "./templates/opt/atlassian/crowd/start_crowd.sh.j2"
-      owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
-      mode: "0755"
   notify:
-    - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
 
 - name: prepare files
@@ -192,7 +113,6 @@
     mode: "{{ item.mode | default('0644') }}"
     state: "{{ item.state | default('file') }}"
   loop:
-    - { dest: "/etc/systemd/system/crowd.service" }
     - dest: "{{ crowd_catalina }}/apache-tomcat/bin/setenv.sh"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
@@ -200,12 +120,7 @@
     - dest: "{{ crowd_catalina }}/apache-tomcat/conf/server.xml"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
-    - dest: "{{ crowd_catalina }}/start_crowd.sh"
-      owner: "{{ crowd_owner }}"
-      group: "{{ crowd_group }}"
-      mode: "0755"
   notify:
-    - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
 
 - name: patch {{ crowd_catalina }}/apache-tomcat/conf/web.xml
