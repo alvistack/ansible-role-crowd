@@ -13,9 +13,7 @@ JAVA_OPTS=" \
 "
 export JAVA_OPTS
 
-CATALINA_OPTS=" \
--Dcrowd.home={{ crowd_home }} \
-"
+CATALINA_OPTS="-Dcrowd.home=$CROWD_HOME"
 export CATALINA_OPTS
 
 # set the location of the pid file
