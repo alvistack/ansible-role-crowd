@@ -70,7 +70,7 @@
     state: "present"
 
 - name: patch /opt/atlassian/crowd/build.properties
-  ini_file:
+  community.general.ini_file:
     path: "{{ crowd_catalina }}/build.properties"
     section: ""
     option: "crowd.url"
@@ -126,7 +126,7 @@
 - name: patch /opt/atlassian/crowd/apache-tomcat/conf/web.xml
   vars:
     ansible_python_interpreter: "python3"
-  xml:
+  community.general.xml:
     path: "{{ crowd_catalina }}/apache-tomcat/conf/web.xml"
     xpath: "/ns:web-app/ns:session-config/ns:session-timeout"
     namespaces:
