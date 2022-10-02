@@ -15,12 +15,13 @@
 # limitations under the License.
 
 - name: crowd | update build with ant
-  ansible.builtin.shell: |
-    set -euxo pipefail
-    cd {{ crowd_catalina }}
-    ./build.sh
-    rm -rf apache-tomcat/conf/Catalina/localhost
-    chown -Rf crowd:crowd {{ crowd_catalina }}
+  ansible.builtin.shell:
+    cmd: |
+      set -euxo pipefail
+      cd {{ crowd_catalina }}
+      ./build.sh
+      rm -rf apache-tomcat/conf/Catalina/localhost
+      chown -Rf crowd:crowd {{ crowd_catalina }}
   args:
     executable: "/bin/bash"
   register: result
