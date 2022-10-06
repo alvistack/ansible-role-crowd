@@ -5,15 +5,18 @@
 CROWD_HOME="{{ crowd_home }}"
 CROWD_CATALINA="{{ crowd_catalina }}"
 
-JAVA_OPTS=" \
--Xms{{ crowd_jvm_minimum_memory }} \
--Xmx{{ crowd_jvm_maximum_memory }} \
-{{ crowd_jvm_support_recommended_args }} \
--Dfile.encoding=UTF-8 \
-"
+JAVA_OPTS="-Dfile.encoding=UTF-8 ${JAVA_OPTS}"
+JAVA_OPTS="-Xms{{ crowd_jvm_minimum_memory }} -Xmx{{ crowd_jvm_maximum_memory }} ${JAVA_OPTS}"
+JAVA_OPTS="{{ crowd_jvm_support_recommended_args }} ${JAVA_OPTS}"
 export JAVA_OPTS
 
-CATALINA_OPTS="-Dcrowd.home=$CROWD_HOME"
+CATALINA_OPTS="-Dcrowd.home=$CROWD_HOME ${CATALINA_OPTS}"
+CATALINA_OPTS="-XX:+UseZGC -XX:+ExplicitGCInvokesConcurrent ${CATALINA_OPTS}"
+CATALINA_OPTS="-Dcrowd.catalina.connector.scheme={{ crowd_catalina_connector_scheme }} ${CATALINA_OPTS}"
+CATALINA_OPTS="-Dcrowd.catalina.connector.secure={{ crowd_catalina_connector_secure }} ${CATALINA_OPTS}"
+CATALINA_OPTS="-Dcrowd.catalina.connector.proxyname={{ crowd_catalina_connector_proxyname }} ${CATALINA_OPTS}"
+CATALINA_OPTS="-Dcrowd.catalina.connector.proxyport={{ crowd_catalina_connector_proxyport }} ${CATALINA_OPTS}"
+CATALINA_OPTS="-Dcrowd.catalina.context.path={{ crowd_catalina_context_path }} ${CATALINA_OPTS}"
 export CATALINA_OPTS
 
 # set the location of the pid file
