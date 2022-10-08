@@ -45,8 +45,6 @@ crowd_catalina_context_path: ~
 crowd_jvm_support_recommended_args: >-
   -Datlassian.plugins.enable.wait=300
   -XX:+UnlockExperimentalVMOptions
-  -XX:+UseCGroupMemoryLimitForHeap
-  -XX:MaxRAMFraction=1
 
 # Session timeout (in minutes).
 crowd_session_timeout: "120"

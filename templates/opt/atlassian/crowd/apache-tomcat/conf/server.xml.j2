@@ -17,10 +17,8 @@
                    URIEncoding="UTF-8"
                    compression="on"
                    sendReasonPhrase="true"
-                   proxyName="{{ crowd_catalina_connector_proxyname }}"
-                   proxyPort="{{ crowd_catalina_connector_proxyport }}"
-                   scheme="{{ crowd_catalina_connector_scheme }}"
-                   secure="{{ crowd_catalina_connector_secure }}"
+                   scheme="${crowd.catalina.connector.scheme}" secure="${crowd.catalina.connector.secure}"
+                   proxyName="${crowd.catalina.connector.proxyname}" proxyPort="${crowd.catalina.connector.proxyport}"
                    compressableMimeType="text/html,text/xml,application/xml,text/plain,text/css,application/json,application/javascript,application/x-javascript" />
 
         <Engine defaultHost="localhost" name="Catalina">
@@ -28,7 +26,7 @@
                 <Valve className="org.apache.catalina.valves.ErrorReportValve"
                        showReport="true"
                        showServerInfo="false" />
-                <Context docBase="../../crowd-webapp" path="{{ crowd_catalina_context_path }}">
+                <Context path="${crowd.catalina.context.path}" docBase="../../crowd-webapp">
                     <Manager pathname="" />
                 </Context>
             </Host>
