@@ -31,9 +31,9 @@ crowd_home: "/var/atlassian/application-data/crowd"
 crowd_catalina: "/opt/atlassian/crowd"
 
 # JVM minimal and maximum memory usage.
-crowd_jvm_minimum_memory: "1024m"
-crowd_jvm_maximum_memory: "1024m"
-crowd_jvm_reserved_code_cache_size: "256m"
+crowd_jvm_minimum_memory: "2048m"
+crowd_jvm_maximum_memory: "2048m"
+crowd_jvm_reserved_code_cache_size: "512m"
 
 # Proxy and context path setup.
 crowd_catalina_connector_port: "8095"
