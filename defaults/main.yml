@@ -33,12 +33,14 @@ crowd_catalina: "/opt/atlassian/crowd"
 # JVM minimal and maximum memory usage.
 crowd_jvm_minimum_memory: "1024m"
 crowd_jvm_maximum_memory: "1024m"
+crowd_jvm_reserved_code_cache_size: "256m"
 
 # Proxy and context path setup.
-crowd_catalina_connector_proxyname: ~
-crowd_catalina_connector_proxyport: ~
+crowd_catalina_connector_port: "8095"
 crowd_catalina_connector_scheme: "http"
 crowd_catalina_connector_secure: "false"
+crowd_catalina_connector_proxyname: ~
+crowd_catalina_connector_proxyport: ~
 crowd_catalina_context_path: ~
 
 # Atlassian Support recommended JVM arguments.
@@ -47,4 +49,4 @@ crowd_jvm_support_recommended_args: >-
   -XX:+UnlockExperimentalVMOptions
 
 # Session timeout (in minutes).
-crowd_session_timeout: "120"
+crowd_autologin_cookie_age: "120"
