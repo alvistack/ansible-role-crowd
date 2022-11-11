@@ -69,6 +69,27 @@
     create_home: false
     state: "present"
 
+- name: prepare directories
+  ansible.builtin.file:
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0755') }}"
+    state: "{{ item.state | default('directory') }}"
+  loop:
+    - dest: "{{ crowd_catalina }}"
+      owner: "{{ crowd_owner }}"
+      group: "{{ crowd_group }}"
+    - dest: "{{ crowd_catalina }}/apache-tomcat/bin"
+      owner: "{{ crowd_owner }}"
+      group: "{{ crowd_group }}"
+    - dest: "{{ crowd_catalina }}/apache-tomcat/conf"
+      owner: "{{ crowd_owner }}"
+      group: "{{ crowd_group }}"
+    - dest: "{{ crowd_home }}"
+      owner: "{{ crowd_owner }}"
+      group: "{{ crowd_group }}"
+
 - name: patch /opt/atlassian/crowd/build.properties
   community.general.ini_file:
     path: "{{ crowd_catalina }}/build.properties"
