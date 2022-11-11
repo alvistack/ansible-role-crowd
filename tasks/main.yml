@@ -80,6 +80,7 @@
     - dest: "{{ crowd_catalina }}"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
+      mode: "0700"
     - dest: "{{ crowd_catalina }}/apache-tomcat/bin"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
@@ -89,6 +90,7 @@
     - dest: "{{ crowd_home }}"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
+      mode: "0750"
 
 - name: patch /opt/atlassian/crowd/build.properties
   community.general.ini_file:
