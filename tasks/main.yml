@@ -77,6 +77,7 @@
     mode: "{{ item.mode | default('0755') }}"
     state: "{{ item.state | default('directory') }}"
   loop:
+    - dest: "/etc/systemd/system"
     - dest: "{{ crowd_catalina }}"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
@@ -116,6 +117,7 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   loop:
+    - dest: "/etc/systemd/system/crowd.service"
     - dest: "{{ crowd_catalina }}/apache-tomcat/bin/setenv.sh"
       src: "./templates/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh.j2"
       owner: "{{ crowd_owner }}"
@@ -126,6 +128,7 @@
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
   notify:
+    - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
 
 - name: prepare files
@@ -136,6 +139,7 @@
     mode: "{{ item.mode | default('0644') }}"
     state: "{{ item.state | default('file') }}"
   loop:
+    - dest: "/etc/systemd/system/crowd.service"
     - dest: "{{ crowd_catalina }}/apache-tomcat/bin/setenv.sh"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
@@ -144,6 +148,7 @@
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
   notify:
+    - crowd | systemctl daemon-reload
     - crowd | systemctl restart crowd.service
 
 - name: patch /opt/atlassian/crowd/apache-tomcat/conf/web.xml
