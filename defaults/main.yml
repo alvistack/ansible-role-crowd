@@ -15,7 +15,7 @@
 # limitations under the License.
 
 # Crowd release.
-crowd_release: "5.1"
+crowd_release: "5.2"
 
 # Crowd version.
 crowd_version: "{{ _crowd_version[crowd_release] }}"
