@@ -14,7 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_crowd_version:
-  "5.2": "5.2.0"
-  "5.1": "5.1.5"
-  "4.4": "4.4.5"
+openjdk_release: "11"
