@@ -46,6 +46,7 @@ crowd_catalina_context_path: ~
 # Atlassian Support recommended JVM arguments.
 crowd_jvm_support_recommended_args: >-
   -Datlassian.plugins.enable.wait=300
+  -XX:+IgnoreUnrecognizedVMOptions
   -XX:+UnlockExperimentalVMOptions
 
 # Session timeout (in minutes).
