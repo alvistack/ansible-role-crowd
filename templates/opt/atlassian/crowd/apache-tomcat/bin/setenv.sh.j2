@@ -11,7 +11,7 @@ JAVA_OPTS="{{ crowd_jvm_support_recommended_args }} ${JAVA_OPTS}"
 export JAVA_OPTS
 
 CATALINA_OPTS="-Dcrowd.home=$CROWD_HOME ${CATALINA_OPTS}"
-CATALINA_OPTS="-XX:+UseZGC -XX:+ExplicitGCInvokesConcurrent ${CATALINA_OPTS}"
+CATALINA_OPTS="-XX:+UseZGC -XX:ZCollectionInterval=5 -XX:ZAllocationSpikeTolerance=5 -XX:+ExplicitGCInvokesConcurrent ${CATALINA_OPTS}"
 CATALINA_OPTS="-Dcrowd.catalina.connector.port={{ crowd_catalina_connector_port }} ${CATALINA_OPTS}"
 CATALINA_OPTS="-Dcrowd.catalina.connector.scheme={{ crowd_catalina_connector_scheme }} ${CATALINA_OPTS}"
 CATALINA_OPTS="-Dcrowd.catalina.connector.secure={{ crowd_catalina_connector_secure }} ${CATALINA_OPTS}"
