@@ -49,5 +49,8 @@ crowd_jvm_support_recommended_args: >-
   -XX:+IgnoreUnrecognizedVMOptions
   -XX:+UnlockExperimentalVMOptions
 
-# Session timeout (in minutes).
-crowd_autologin_cookie_age: "120"
+# Session timeout (120 minutes = 2 hours).
+crowd_session_timeout: "120"
+
+# Remember Me timeout (10080 minutes = 168 hours = 7 days).
+crowd_autologin_cookie_age: "10080"
