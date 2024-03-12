@@ -1,5 +1,4 @@
 ---
-
 # Copyright 2024 Wong Hoi Sing Edison <hswong3i@pantarei-design.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +22,7 @@
       rm -rf apache-tomcat/conf/Catalina/localhost
       chown -Rf crowd:crowd {{ crowd_catalina }}
   args:
-    executable: "/bin/bash"
+    executable: /bin/bash
   register: result
   changed_when: result is not succeeded
 
@@ -35,8 +34,8 @@
 
 - name: crowd | systemctl restart crowd.service
   ansible.builtin.service:
-    name: "crowd.service"
-    state: "restarted"
+    name: crowd.service
+    state: restarted
     enabled: true
   loop: "{{ ansible_play_hosts }}"
   delegate_to: "{{ item }}"

@@ -1,5 +1,4 @@
 ---
-
 # Copyright 2024 Wong Hoi Sing Edison <hswong3i@pantarei-design.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +14,7 @@
 # limitations under the License.
 
 - name: include default variables
-  ansible.builtin.include_vars: "../vars/main.yml"
+  ansible.builtin.include_vars: ../vars/main.yml
 
 - name: include release specific variables
   ansible.builtin.include_vars: "{{ _loop_var }}"
@@ -32,7 +31,7 @@
         - "{{ ansible_os_family | lower }}-{{ ansible_distribution_major_version | lower }}.yml"
         - "{{ ansible_os_family | lower }}.yml"
       paths:
-        - "../vars"
+        - ../vars
       skip: true
 
 - name: include release specific tasks
@@ -50,24 +49,24 @@
         - "{{ ansible_os_family | lower }}-{{ ansible_distribution_major_version | lower }}.yml"
         - "{{ ansible_os_family | lower }}.yml"
       paths:
-        - "."
+        - .
       skip: true
 
 - name: groupadd
   ansible.builtin.group:
     name: "{{ crowd_group }}"
     system: true
-    state: "present"
+    state: present
 
 - name: useradd
   ansible.builtin.user:
     name: "{{ crowd_owner }}"
     group: "{{ crowd_group }}"
     home: "{{ crowd_home }}"
-    shell: "/bin/bash"
+    shell: /bin/bash
     system: true
     create_home: false
-    state: "present"
+    state: present
 
 - name: prepare directories
   ansible.builtin.file:
@@ -77,7 +76,7 @@
     mode: "{{ item.mode | default('0755') }}"
     state: "{{ item.state | default('directory') }}"
   loop:
-    - dest: "/etc/systemd/system"
+    - dest: /etc/systemd/system
     - dest: "{{ crowd_catalina }}"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
@@ -97,11 +96,11 @@
   community.general.ini_file:
     path: "{{ crowd_catalina }}/build.properties"
     section: ""
-    option: "crowd.url"
-    value: "http://localhost:8095{{ crowd_catalina_context_path or '' }}"
+    option: crowd.url
+    value: http://localhost:8095{{ crowd_catalina_context_path or '' }}
     mode: "0644"
     no_extra_spaces: true
-    state: "present"
+    state: present
   notify:
     - crowd | update build with ant
     - crowd | systemctl restart crowd.service
@@ -117,14 +116,14 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   loop:
-    - dest: "/etc/systemd/system/crowd.service"
+    - dest: /etc/systemd/system/crowd.service
     - dest: "{{ crowd_catalina }}/apache-tomcat/bin/setenv.sh"
-      src: "./templates/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh.j2"
+      src: ./templates/opt/atlassian/crowd/apache-tomcat/bin/setenv.sh.j2
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
       mode: "0755"
     - dest: "{{ crowd_catalina }}/apache-tomcat/conf/server.xml"
-      src: "./templates/opt/atlassian/crowd/apache-tomcat/conf/server.xml.j2"
+      src: ./templates/opt/atlassian/crowd/apache-tomcat/conf/server.xml.j2
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
   notify:
@@ -139,7 +138,7 @@
     mode: "{{ item.mode | default('0644') }}"
     state: "{{ item.state | default('file') }}"
   loop:
-    - dest: "/etc/systemd/system/crowd.service"
+    - dest: /etc/systemd/system/crowd.service
     - dest: "{{ crowd_catalina }}/apache-tomcat/bin/setenv.sh"
       owner: "{{ crowd_owner }}"
       group: "{{ crowd_group }}"
@@ -153,21 +152,21 @@
 
 - name: patch /opt/atlassian/crowd/apache-tomcat/conf/web.xml
   vars:
-    ansible_python_interpreter: "python3"
+    ansible_python_interpreter: python3
   community.general.xml:
     path: "{{ crowd_catalina }}/apache-tomcat/conf/web.xml"
     xpath: "{{ item.xpath }}"
     namespaces:
-      ns: "http://xmlns.jcp.org/xml/ns/javaee"
+      ns: http://xmlns.jcp.org/xml/ns/javaee
     value: "{{ item.value }}"
     pretty_print: true
-    state: "present"
+    state: present
   loop:
-    - xpath: "/ns:web-app/ns:session-config/ns:session-timeout"
+    - xpath: /ns:web-app/ns:session-config/ns:session-timeout
       value: "{{ crowd_session_timeout | int }}"
-    - xpath: "/ns:web-app/ns:session-config/ns:tracking-mode"
-      value: "COOKIE"
-    - xpath: "/ns:web-app/ns:session-config/ns:cookie-config/ns:max-age"
+    - xpath: /ns:web-app/ns:session-config/ns:tracking-mode
+      value: COOKIE
+    - xpath: /ns:web-app/ns:session-config/ns:cookie-config/ns:max-age
       value: "{{ (crowd_session_timeout | int) * 60 }}"
   notify:
     - crowd | systemctl restart crowd.service
@@ -177,8 +176,8 @@
 
 - name: systemctl start crowd.service
   ansible.builtin.service:
-    name: "crowd.service"
-    state: "started"
+    name: crowd.service
+    state: started
     enabled: true
   changed_when: false
   failed_when: false
