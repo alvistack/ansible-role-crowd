@@ -42,11 +42,19 @@ crowd_catalina_connector_secure:
 crowd_catalina_connector_proxyname:
 crowd_catalina_connector_proxyport:
 crowd_catalina_context_path:
+
 # Atlassian Support recommended JVM arguments.
 crowd_jvm_support_recommended_args: >-
   -Datlassian.plugins.enable.wait=300
   -XX:+IgnoreUnrecognizedVMOptions
   -XX:+UnlockExperimentalVMOptions
+
+# Default garbage collector and its settings.
+crowd_jvm_gc_args: >-
+  -XX:+UseZGC
+  -XX:ZCollectionInterval=5
+  -XX:ZAllocationSpikeTolerance=5
+  -XX:+ExplicitGCInvokesConcurrent
 
 # Session timeout (120 minutes = 2 hours).
 crowd_session_timeout: "120"
