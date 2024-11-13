@@ -37,8 +37,8 @@ crowd_jvm_reserved_code_cache_size: 512m
 
 # Proxy and context path setup.
 crowd_catalina_connector_port: "8095"
-crowd_catalina_connector_scheme:
-crowd_catalina_connector_secure:
+crowd_catalina_connector_scheme: "http"
+crowd_catalina_connector_secure: "false"
 crowd_catalina_connector_proxyname:
 crowd_catalina_connector_proxyport:
 crowd_catalina_context_path:
