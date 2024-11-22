@@ -41,7 +41,7 @@ crowd_catalina_connector_scheme: "http"
 crowd_catalina_connector_secure: "false"
 crowd_catalina_connector_proxyname:
 crowd_catalina_connector_proxyport:
-crowd_catalina_context_path:
+crowd_catalina_context_path: "/"
 
 # Atlassian Support recommended JVM arguments.
 crowd_jvm_support_recommended_args: >-
