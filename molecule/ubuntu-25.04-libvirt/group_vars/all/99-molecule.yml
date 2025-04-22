@@ -14,5 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-_crowd_version:
-  "6.3": 6.3.0
+openjdk_release: "17"
