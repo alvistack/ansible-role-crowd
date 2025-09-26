@@ -157,7 +157,7 @@
     path: "{{ crowd_catalina }}/apache-tomcat/conf/web.xml"
     xpath: "{{ item.xpath }}"
     namespaces:
-      ns: http://xmlns.jcp.org/xml/ns/javaee
+      ns: https://jakarta.ee/xml/ns/jakartaee
     value: "{{ item.value }}"
     pretty_print: true
     state: present
