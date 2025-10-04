@@ -157,7 +157,28 @@
     path: "{{ crowd_catalina }}/apache-tomcat/conf/web.xml"
     xpath: "{{ item.xpath }}"
     namespaces:
-      ns: http://xmlns.jcp.org/xml/ns/javaee
+      ns: https://jakarta.ee/xml/ns/jakartaee
+    value: "{{ item.value }}"
+    pretty_print: true
+    state: present
+  loop:
+    - xpath: /ns:web-app/ns:session-config/ns:session-timeout
+      value: "{{ crowd_session_timeout | int }}"
+    - xpath: /ns:web-app/ns:session-config/ns:tracking-mode
+      value: COOKIE
+    - xpath: /ns:web-app/ns:session-config/ns:cookie-config/ns:max-age
+      value: "{{ (crowd_autologin_cookie_age | int) * 60 }}"
+  notify:
+    - crowd | systemctl restart crowd.service
+
+- name: patch /opt/atlassian/crowd/crowd-webapp/WEB-INF/web.xml
+  vars:
+    ansible_python_interpreter: python3
+  community.general.xml:
+    path: "{{ crowd_catalina }}/crowd-webapp/WEB-INF/web.xml"
+    xpath: "{{ item.xpath }}"
+    namespaces:
+      ns: http://java.sun.com/xml/ns/javaee
     value: "{{ item.value }}"
     pretty_print: true
     state: present
