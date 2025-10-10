@@ -163,11 +163,11 @@
     state: present
   loop:
     - xpath: /ns:web-app/ns:session-config/ns:session-timeout
-      value: "{{ crowd_session_timeout | int }}"
+      value: "{{ (crowd_session_timeout | int) | string }}"
     - xpath: /ns:web-app/ns:session-config/ns:tracking-mode
-      value: COOKIE
+      value: "COOKIE"
     - xpath: /ns:web-app/ns:session-config/ns:cookie-config/ns:max-age
-      value: "{{ (crowd_autologin_cookie_age | int) * 60 }}"
+      value: "{{ ((crowd_autologin_cookie_age | int) * 60) | string }}"
   notify:
     - crowd | systemctl restart crowd.service
 
@@ -184,11 +184,11 @@
     state: present
   loop:
     - xpath: /ns:web-app/ns:session-config/ns:session-timeout
-      value: "{{ crowd_session_timeout | int }}"
+      value: "{{ (crowd_session_timeout | int) | string }}"
     - xpath: /ns:web-app/ns:session-config/ns:tracking-mode
-      value: COOKIE
+      value: "COOKIE"
     - xpath: /ns:web-app/ns:session-config/ns:cookie-config/ns:max-age
-      value: "{{ (crowd_autologin_cookie_age | int) * 60 }}"
+      value: "{{ ((crowd_autologin_cookie_age | int) * 60) | string }}"
   notify:
     - crowd | systemctl restart crowd.service
 
