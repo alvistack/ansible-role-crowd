@@ -18,7 +18,7 @@
 crowd_release: "7.1"
 
 # Crowd version.
-crowd_version: "{{ _crowd_version[crowd_release] }}"
+crowd_version: "{{ _crowd_version }}"
 
 # Owner and group for Crowd.
 crowd_owner: crowd
