@@ -16,4 +16,4 @@
 
 _crowd_version: "{{ __crowd_version[crowd_release] }}"
 __crowd_version:
-  "7.2": 7.2.0
+  "7.2": 7.2.1
